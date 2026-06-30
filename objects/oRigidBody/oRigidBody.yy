@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"RigidBody",
+  "%Name":"oRigidBody",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"RigidBody",
+  "name":"oRigidBody",
   "overriddenProperties":[],
   "parent":{
-    "name":"Physics_body",
-    "path":"Physics_body.yyp",
+    "name":"Object",
+    "path":"folders/Object.yy",
   },
   "parentObjectId":null,
   "persistent":false,

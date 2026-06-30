@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Vector2",
+  "%Name":"ScrVector2",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Vector2",
+  "name":"ScrVector2",
   "parent":{
-    "name":"Physics_body",
-    "path":"Physics_body.yyp",
+    "name":"Script",
+    "path":"folders/Script.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
