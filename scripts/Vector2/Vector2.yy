@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Vector2",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Vector2",
+  "parent":{
+    "name":"Physics_body",
+    "path":"Physics_body.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
