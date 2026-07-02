@@ -1,4 +1,4 @@
-function Matrix22(){
+function Matrix22(_angle = -1) constructor {
 
     //The 2x2 matrix
     //[a,b] -> [a,b,c,d]
@@ -8,6 +8,7 @@ function Matrix22(){
     
     #region Setters/Getters
     
+    //Converts an angle into rotation matrix
     static setRotation = function (_angle){
         
         data[0] = dcos(_angle);
@@ -17,6 +18,8 @@ function Matrix22(){
         
     }
     
-    
     #endregion
+    
+   //Set data
+    if (_angle != -1) setRotation(_angle);
 }
