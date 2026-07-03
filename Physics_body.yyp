@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"Object","folderPath":"folders/Object.yy","name":"Object","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Script","folderPath":"folders/Script.yy","name":"Script","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Vectors","folderPath":"folders/Script/Vectors.yy","name":"Vectors","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[],
