@@ -28,6 +28,7 @@
     {"id":{"name":"oRigidBody","path":"objects/oRigidBody/oRigidBody.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"ScrMatrix22","path":"scripts/ScrMatrix22/ScrMatrix22.yy",},},
+    {"id":{"name":"ScrRigidFunction","path":"scripts/ScrRigidFunction/ScrRigidFunction.yy",},},
     {"id":{"name":"ScrShape","path":"scripts/ScrShape/ScrShape.yy",},},
     {"id":{"name":"ScrVector2","path":"scripts/ScrVector2/ScrVector2.yy",},},
     {"id":{"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy",},},

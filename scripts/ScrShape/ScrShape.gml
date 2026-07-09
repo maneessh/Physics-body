@@ -17,3 +17,4 @@ enum Shape {
     RECT_ROTATED,
     CIRCLE
 }
+
