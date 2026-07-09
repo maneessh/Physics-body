@@ -37,4 +37,5 @@ acceleration = new Vector2();   //Updates the velocity every frame, acceleration
 force = new Vector2();          //Used to calculate accleration every frame, forece = maxx x accleration
 prev_force = new Vector2();     //Storing previous force.
 
+
 #endregion

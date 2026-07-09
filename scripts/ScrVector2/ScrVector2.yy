@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ScrVector2",
   "parent":{
-    "name":"Script",
-    "path":"folders/Script.yy",
+    "name":"Vectors",
+    "path":"folders/Script/Vectors.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

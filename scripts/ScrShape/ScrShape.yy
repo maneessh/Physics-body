@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"ScrMatrix22",
+  "%Name":"ScrShape",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ScrMatrix22",
+  "name":"ScrShape",
   "parent":{
-    "name":"Vectors",
-    "path":"folders/Script/Vectors.yy",
+    "name":"Script",
+    "path":"folders/Script.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
