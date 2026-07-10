@@ -1,3 +1,100 @@
-function Script4(){
+#region Rigid Body
 
+#region Setter/Getters
+
+function GetMass(_rb){ //Returns the mass (inverseMass) of the body 
+    if (_rb.inverseMass == 0) return infinity ;
+    	return 1/_rb.inverseMass;
+    
 }
+
+
+
+function SetMass(_rb, _mass){
+    if (_mass == 0) throw ("Set mass error. Mass can't be zero") {
+    	_rb.inverseMass = 1 / _mass;
+        
+    }
+}
+
+
+function GetWidth(_rb){
+    if (_rb.shape == Shape.RECT_ROTATED) { // Shape is RECT_ROTATED
+    	var _angle = _rb.image_angle;
+        _rb.image_angle = 0;
+        var _w = _rb.bbox_right - _rb.bbox_left;
+        _rb.image_angle = _angle;
+        return _w;
+    }
+    
+    return _rb.bbox_right - _rb.bbox_left;
+}
+
+
+function GetHeight(_rb){
+    if (_rb.shape == Shape.RECT_ROTATED) { //Shape is RECT_ROTATED
+    	var _angle = _rb.image_angle;
+        _rb.image_angle = 0;
+        var _h = _rb.bbox_bottom - _rb.bbox_top;
+        _rb.image_angle = _angle;
+        return _h;
+    }
+    
+    return _rb.bbox_bottom - _rb.bbox_top;
+}
+
+
+function GetRadius(_rb){
+    var _w = _rb.bbox_right - _rb.bbox_left;
+    var _h = _rb.bbox_bottom - _rb.bbox_top;
+    if (_w > _h) return _h * 0.5 ;   //Needed smaller dimension for the circle to fits completely inside
+    	return _w * 0.5;
+    
+}
+
+
+function SetAngle(_rb,_angle){  //How much is the object rotated?
+    _rb.image_angle = _angle;
+    if (_rb.shape == Shape.RECT_ROTATED) {
+    	_rb.orientation.setRotation(_rb.image_angle);
+    }
+}
+
+
+function SetShape(_rb,_shape){
+    
+    _rb.shape = _shape;
+    switch (_shape) {
+    	
+        case Shape.RECT:
+            _rb.orientation.setRotation(0);
+            break;
+        case Shape.CIRCLE:
+            _rb.orientation.setRotation(0);
+            break;
+        case Shape.RECT_ROTATED:
+            _rb.orientation.setRotaion(-_rb.image_angle);
+            break;
+    }
+}
+
+
+
+function SetAwake(_rb, _awake = true){
+    with (_rb) {
+    	if (_awake) {
+        	isAwake = true;
+            //Add some motion to avoid immediately sleeping
+            motion = Sleep * 2;
+            
+        }else {
+        	//Sleep
+            isAwake = false;
+            velocity.set();
+        }
+    }
+}
+
+#endregion
+
+#endregion

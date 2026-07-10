@@ -7,14 +7,25 @@
 //The higher the inverse mass, the 'lighter' the body
 inverseMass = 1;
 
+
+//Shape ? Default is RECT
+shape = Shape.RECT;
+
+
 //How bouncy the object is during collisions (0 = no bounce , 1 = max bounce)
 bounciness = 1;
 
+
 // A rotation matrix representing the body's orientattion in computer coordinates ( +y for down, +x for right)
 // When changing the angle of the rigid body, using nbpSetAngle(rb,Angle) to automatically update the matrix.
-
 orientation = new Matrix22( -image_angle);
 
+
+//Rigid bodies can be put to sleep to avoid integration/Collision functions.
+isAwake = true;
+
+//Used to prevent specific  bodies from being put to sleep, such as player
+canSleep = true;
 
 #endregion
 

@@ -9,7 +9,7 @@ function Matrix22(_angle = -1) constructor {
     #region Setters/Getters
     
     //Converts an angle into rotation matrix
-    static setRotation = function (_angle){
+    static setRotation = function (_angle){ 
         
         data[0] = dcos(_angle);
         data[2] = dsin(_angle);
