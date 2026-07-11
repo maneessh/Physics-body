@@ -95,6 +95,51 @@ function SetAwake(_rb, _awake = true){
     }
 }
 
-#endregion
+
 
 #endregion
+
+#region Properties
+#endregion
+#region Simulation
+
+function AddForces(_rb, _fx, _fy)
+{
+    _rb.force.add(_fx, _fy);
+    //wake
+    if (!_rb.isAwake) {
+    	SetAngle(_rb,true)
+    }
+}
+
+function AddforceVector(_rb,_f){
+    _rb.force.addVector(_f);
+    //wake
+    if (!_rb.isAwake) {
+    	SetAngle(_rb, true);
+    }
+}
+
+
+
+//Heart of the Physic engine
+function Integrate(_rb,_dt)
+{
+    //Making sure body is Awake
+    if (_rb.canSleep && !_rb.isAwake) return;
+        
+    //Make sure time isn't zero
+    if (_dt <= 0) throw ("Integration error. Cannot be zero")
+        
+    with (_rb) {
+    	//Store previous force
+        prev_force.setVector(force);
+        //Calculate acceleration
+        acceleration.setScaled
+    }
+}
+
+
+#endregion
+#endregion
+

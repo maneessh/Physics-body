@@ -16,9 +16,50 @@ function Vector2(_x = 0, _y = 0) constructor {
         
     }
     
-    static addVector = function (_x, _y){
+    static setScaled = function (_x = 0, _y = 0, _factor = 1) // Velocity = direction * speed;
+    {
+        x = _x * _factor;
+        y = _y * _factor;
+    }
+    
+    
+    #region Properties
+    
+    static magnitude = function (){
+        return sqrt(x * x + y * y);
+    }
+    
+    #endregion
+    
+    
+    static scale = function (_factor)
+    {
+        x *= _factor;
+        y *= _factor;
+    }
+    
+    
+    static normalize = function (){
+        //Get length 
+        var _len = magnitude();
+        if (_len > 0) {
+        	scale(1 / _len);
+        }
+    }
+    
+    static add = function (_x, _y)
+    {
         x += _x;
         y += _y;
     }
+    
+    static addVector = function (_v){
+        
+        x += _v.x;
+        y += _v.y;
+    }
+    
+    
+    
     
 }
