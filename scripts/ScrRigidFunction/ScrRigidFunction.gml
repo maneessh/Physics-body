@@ -135,9 +135,30 @@ function Integrate(_rb,_dt)
     	//Store previous force
         prev_force.setVector(force);
         //Calculate acceleration
-        acceleration.setScaled
+        acceleration.setScaledVector(force, inverseMass); //a = F x M 
+        //Apply velocity damping
+        velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
+        
+        var _vx = velocity.x;
+        var _vy = velocity.y;
     }
+    
 }
+
+
+#region Simulation
+
+function RunPhysics(_pw, _dt)
+{
+    if (_dt <= 0) return; // No movemnet, No Collision
+        
+    with (_pw.rbObject) {
+    	Integrate(self.id, _dt);
+    }
+    
+    
+}
+#endregion
 
 
 #endregion

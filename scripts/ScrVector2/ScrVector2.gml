@@ -22,6 +22,12 @@ function Vector2(_x = 0, _y = 0) constructor {
         y = _y * _factor;
     }
     
+    static setScaledVector = function (_v, _factor = 1) //
+    {
+        x = _v.x * _factor;
+        y = _v.y * _factor;
+    }
+    
     
     #region Properties
     
