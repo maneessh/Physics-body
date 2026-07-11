@@ -13,3 +13,4 @@ This is run in Step so you can add forces in Begin Step and have things follow p
 bodies in End Step.
 */
 
+RunPhysics(self.id , _dt);
