@@ -65,7 +65,12 @@ function Vector2(_x = 0, _y = 0) constructor {
         y += _v.y;
     }
     
-    
+    //Instead of add(x *_factor, y * _factor) it combines both 
+    static addScaledVector = function (_v, _factor) 
+    {
+        x += _v.x * _factor;
+        y += _v.y * _factor;
+    }
     
     
 }

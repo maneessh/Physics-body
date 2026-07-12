@@ -108,7 +108,7 @@ function AddForces(_rb, _fx, _fy)
     _rb.force.add(_fx, _fy);
     //wake
     if (!_rb.isAwake) {
-    	SetAngle(_rb,true)
+    	SetAwake(_rb,true)
     }
 }
 
@@ -116,7 +116,7 @@ function AddforceVector(_rb,_f){
     _rb.force.addVector(_f);
     //wake
     if (!_rb.isAwake) {
-    	SetAngle(_rb, true);
+    	SetAwake(_rb, true);
     }
 }
 
@@ -135,14 +135,23 @@ function Integrate(_rb,_dt)
     	//Store previous force
         prev_force.setVector(force);
         //Calculate acceleration
-        acceleration.setScaledVector(force, inverseMass); //a = F x M 
+        acceleration.setScaledVector(force, inverseMass); //a = F x M
+        //Calcuate veocity
+        velocity.addScaledVector(acceleration, _dt); 
         //Apply velocity damping
         velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
         
         var _vx = velocity.x;
         var _vy = velocity.y;
+        
+        
+    x += _vx;
+    y += _vy;
+        
+        
     }
     
+    show_debug_message(string(force.x) + ", " + string(force.y) + " mass=" + string(inverseMass));
 }
 
 
