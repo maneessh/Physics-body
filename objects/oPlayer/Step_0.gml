@@ -1,5 +1,5 @@
 moveInput.x = keyboard_check(vk_right) - keyboard_check(vk_left);
-moveInput.y = keyboard_check(ord("W")) - keyboard_check(ord("S"));
+moveInput.y = keyboard_check(vk_down) - keyboard_check(vk_up);
 
 moveInput.normalize();
 moveInput.scale(moveStrength);

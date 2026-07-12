@@ -103,6 +103,12 @@ function SetAwake(_rb, _awake = true){
 #endregion
 #region Simulation
 
+
+function ClearForces(_rb) //Clear the forces acting on the body
+{
+    _rb.force.set();
+}
+
 function AddForces(_rb, _fx, _fy)
 {
     _rb.force.add(_fx, _fy);
@@ -132,14 +138,21 @@ function Integrate(_rb,_dt)
     if (_dt <= 0) throw ("Integration error. Cannot be zero")
         
     with (_rb) {
+        
     	//Store previous force
         prev_force.setVector(force);
+        
         //Calculate acceleration
         acceleration.setScaledVector(force, inverseMass); //a = F x M
+        
+        //Add Gravity
+        acceleration.addVector(grav);
+        
         //Calcuate veocity
         velocity.addScaledVector(acceleration, _dt); 
+        
         //Apply velocity damping
-        velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
+         velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
         
         var _vx = velocity.x;
         var _vy = velocity.y;
@@ -157,6 +170,13 @@ function Integrate(_rb,_dt)
 
 #region Simulation
 
+
+function InitNextphysicsFrame(_pw)
+{
+    with (_pw.rbObject) {
+    	ClearForces(self.id);
+    }
+}
 function RunPhysics(_pw, _dt)
 {
     if (_dt <= 0) return; // No movemnet, No Collision

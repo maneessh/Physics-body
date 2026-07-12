@@ -14,4 +14,9 @@ bodies in End Step.
 */
 RunPhysics(self.id , _dt);
 
+/*
+Clears all of the forces for the next f rame. It's called after the physics simulation to allow
+forces to be added from generally anywhere rather than within a certain window.
+*/
+InitNextphysicsFrame(self.id);
 

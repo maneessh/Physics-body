@@ -8,3 +8,5 @@ moveStrength = 5;
 SetAwake(self.id, true);
 canSleep = false;
 
+//Shape
+
