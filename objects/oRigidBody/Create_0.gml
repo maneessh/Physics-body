@@ -50,3 +50,12 @@ prev_force = new Vector2();     //Storing previous force.
 
 
 #endregion
+
+#region Debug
+
+// Draw
+color = #ffff55;	// The color of body when drawn (default color for rect is yellow)
+outlines = true;	// If true, shows all of the possible shape's outlines (circle, rotated rect, rect)
+funcDrawShape = DrawRect;
+
+#endregion

@@ -4,9 +4,13 @@ event_inherited();
 moveInput = new Vector2();
 moveStrength = 5;
 
-
 SetAwake(self.id, true);
 canSleep = false;
 
-//Shape
 
+
+//Shape
+SetShape(self.id ,Shape.RECT);
+
+//Friction
+damping = 0.1;

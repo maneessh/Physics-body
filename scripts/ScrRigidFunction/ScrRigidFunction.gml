@@ -68,12 +68,26 @@ function SetShape(_rb,_shape){
     	
         case Shape.RECT:
             _rb.orientation.setRotation(0);
+            
+            //Draw
+            _rb.funcDrawShape = DrawRect;
+            _rb.color = #ffff55;
+            
             break;
         case Shape.CIRCLE:
             _rb.orientation.setRotation(0);
+            
+            //Draw
+            _rb.funcDrawShape = DrawCircle;
+            _rb.color = #55ff55;
             break;
         case Shape.RECT_ROTATED:
             _rb.orientation.setRotaion(-_rb.image_angle);
+            
+            //Draw
+            _rb.funcDrawShape = DrawRotatedRec;
+            _rb.color = #ff5555;
+            
             break;
     }
 }
@@ -193,3 +207,38 @@ function RunPhysics(_pw, _dt)
 #endregion
 #endregion
 
+#region Debug
+
+function DrawRect(_rb)
+{
+    with (_rb) {
+    	
+        //Outlines
+        // Rectangle
+		draw_set_color(color);
+		draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+		
+		// Reset color
+		draw_set_color(c_white);
+    }
+}
+
+function DrawRotatedRec(_rb)
+{
+ 
+    //Rotated rectangle
+    image_blend = color;
+    draw_self();
+    // Reset color
+    draw_set_color(c_white);   
+}
+
+function DrawCircle(_rb)
+{
+    draw_set_color(color);
+    draw_circle(x, y, nbpGetRadius(self.id), true);
+    // Reset color
+    draw_set_color(c_white);
+}
+
+#endregion
