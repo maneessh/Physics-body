@@ -72,7 +72,7 @@ function SetShape(_rb,_shape){
             //Draw
             _rb.funcDrawShape = DrawRect;
             _rb.color = #ffff55;
-            
+            show_debug_message("Draw rectangle");
             break;
         case Shape.CIRCLE:
             _rb.orientation.setRotation(0);
@@ -214,6 +214,13 @@ function DrawRect(_rb)
     with (_rb) {
     	
         //Outlines
+        if (outlines)
+		{
+			image_blend = c_dkgray;
+			draw_set_color(c_dkgray);
+			draw_self();
+			draw_circle(x, y, GetRadius(self.id), true);
+		}
         // Rectangle
 		draw_set_color(color);
 		draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
@@ -225,20 +232,42 @@ function DrawRect(_rb)
 
 function DrawRotatedRec(_rb)
 {
- 
-    //Rotated rectangle
-    image_blend = color;
-    draw_self();
-    // Reset color
-    draw_set_color(c_white);   
+    with (_rb) {
+        
+        // Outlines
+		if (outlines)
+		{
+			draw_set_color(c_dkgray);
+			draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+			draw_circle(x, y, GetRadius(self.id), true);
+		}
+		
+        
+        //Rotated rectangle
+        image_blend = color;
+        draw_self();
+        // Reset color
+        draw_set_color(c_white);
+    }   
 }
 
 function DrawCircle(_rb)
 {
-    draw_set_color(color);
-    draw_circle(x, y, nbpGetRadius(self.id), true);
-    // Reset color
-    draw_set_color(c_white);
+    with (_rb) {
+    	// Outlines
+		if (outlines)
+		{
+			image_blend = c_dkgray;
+			draw_set_color(c_dkgray);
+			draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+			draw_self();
+		}
+    
+        draw_set_color(color);
+        draw_circle(x, y,GetRadius(self.id), true);
+        // Reset color
+        draw_set_color(c_white);
+    }
 }
 
 #endregion
