@@ -7,10 +7,6 @@ moveStrength = 5;
 SetAwake(self.id, true);
 canSleep = false;
 
-
-
-//Shape
-SetShape(self.id ,Shape.RECT);
-
+SetShape(self.id,Shape.RECT);
 //Friction
 damping = 0.1;

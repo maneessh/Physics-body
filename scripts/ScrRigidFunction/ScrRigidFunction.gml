@@ -82,7 +82,7 @@ function SetShape(_rb,_shape){
             _rb.color = #55ff55;
             break;
         case Shape.RECT_ROTATED:
-            _rb.orientation.setRotaion(-_rb.image_angle);
+            _rb.orientation.setRotation(-_rb.image_angle);
             
             //Draw
             _rb.funcDrawShape = DrawRotatedRec;
