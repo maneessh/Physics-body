@@ -48,9 +48,17 @@ acceleration = new Vector2();   //Updates the velocity every frame, acceleration
 force = new Vector2();          //Used to calculate accleration every frame, forece = maxx x accleration
 prev_force = new Vector2();     //Storing previous force.
 
-
 #endregion
 
+#region Physics Generator
+
+/*
+Holds registered contact generators that will be applied to the body by a physics world
+To add a contact generator, use nbpAddContactGen(rb, cg).
+*/
+contactGens = [];
+
+#endregion
 #region Debug
 
 // Draw

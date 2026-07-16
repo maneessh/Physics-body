@@ -170,8 +170,8 @@ function InstContactGen() : ContactGen() constructor
 	{
 		// Get distances
 		var _dist = point_distance(_circ1.x, _circ1.y, _circ2.x, _circ2.y);  
-		var _r1 = nbpGetRadius(_circ1);
-		var _r2 = nbpGetRadius(_circ2);
+		var _r1 = GetRadius(_circ1);
+		var _r2 = GetRadius(_circ2);
 		if (_dist < (_r1 + _r2))
 		{
 			// Clear contact
@@ -241,8 +241,8 @@ function InstContactGen() : ContactGen() constructor
 	static circleRectCollision = function(_contact, _circ, _rect, _flip=false)
 	{
 		// Get distances
-		var _r = nbpGetRadius(_circ);
-		var _hw = nbpGetWidth(_rect) * 0.5, _hh = nbpGetHeight(_rect) * 0.5;
+		var _r = GetRadius(_circ);
+		var _hw = GetWidth(_rect) * 0.5, _hh = GetHeight(_rect) * 0.5;
 		var _cdx = abs(_circ.x - _rect.x), _cdy = abs(_circ.y - _rect.y);
 		
 		// Rectangle check
@@ -342,8 +342,8 @@ function InstContactGen() : ContactGen() constructor
 		_contact.restitution = getCollisionRestitution(_rrect1, _rrect2);
 		
 		// Get base dimensions
-		var _hw1 = nbpGetWidth(_rrect1) * 0.5, _hh1 = nbpGetHeight(_rrect1) * 0.5;
-		var _hw2 = nbpGetWidth(_rrect2) * 0.5, _hh2 = nbpGetHeight(_rrect2) * 0.5;
+		var _hw1 = GetWidth(_rrect1) * 0.5, _hh1 = GetHeight(_rrect1) * 0.5;
+		var _hw2 = GetWidth(_rrect2) * 0.5, _hh2 = GetHeight(_rrect2) * 0.5;
 		
 		// Init info
 		var _bestPenetration = 99999;
@@ -427,8 +427,8 @@ function InstContactGen() : ContactGen() constructor
 	static circleRotatedRectCollision = function(_contact, _circ, _rrect, _flip=false)
 	{
 		// Get dimensions
-		var _radius = nbpGetRadius(_circ);
-		var _hw = nbpGetWidth(_rrect) * 0.5, _hh = nbpGetHeight(_rrect) * 0.5;
+		var _radius = GetRadius(_circ);
+		var _hw = GetWidth(_rrect) * 0.5, _hh = GetHeight(_rrect) * 0.5;
 		
 		// Rotate the circle based on the rotated rectangle's coordinates
 		var _rcirc = new Vector2(_circ.x - _rrect.x, _circ.y - _rrect.y);		// Displacement								

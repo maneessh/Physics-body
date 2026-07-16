@@ -91,6 +91,13 @@ function Vector2(_x = 0, _y = 0) constructor {
         set(x * _m.data[0] + y * _m.data[1], x * _m.data[2] + y * _m.data[3]);
     }
     
+    ///		m	The matrix.
+	///		Multiplies the vector by the given 2x2 matrix's inverse.
+	static multiplyInverseMatrix22 = function(_m)
+	{
+		set(x * _m.data[0] + y * _m.data[2], x * _m.data[1] + y * _m.data[3]);
+	}
+	
     #endregion
     
     #region Output operations

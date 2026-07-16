@@ -114,6 +114,14 @@ function SetAwake(_rb, _awake = true){
 #endregion
 
 #region Properties
+
+//collisionBitmask	The collision bitmask.
+//bitmask	The bitmask to check.
+//Returns whether or not there is a similarity within the bitmasks.
+function HasLayerCollision(_collisionBitmask , _bitmask)
+{
+    return !((_collisionBitmask & _bitmask) == 0); 
+}
 #endregion
 #region Simulation
 
@@ -138,6 +146,13 @@ function AddforceVector(_rb,_f){
     if (!_rb.isAwake) {
     	SetAwake(_rb, true);
     }
+}
+
+//_cg contact generator
+//Adds a contact generator to the rigid body . Need this function to add a rigid bodies 
+function AddContactGen(_rb, _cg)
+{
+    array_push(_rb.contactGens , _cg);
 }
 
 
@@ -182,7 +197,7 @@ function Integrate(_rb,_dt)
 }
 
 
-#region Simulation
+#region Physic World
 
 
 function InitNextphysicsFrame(_pw)
