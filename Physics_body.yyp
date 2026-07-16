@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"Object","folderPath":"folders/Object.yy","name":"Object","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Script","folderPath":"folders/Script.yy","name":"Script","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Contact","folderPath":"folders/Script/Contact.yy","name":"Contact","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Vectors","folderPath":"folders/Script/Vectors.yy","name":"Vectors","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
@@ -29,6 +30,7 @@
     {"id":{"name":"oRigidBody","path":"objects/oRigidBody/oRigidBody.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"ScrContactGen","path":"scripts/ScrContactGen/ScrContactGen.yy",},},
+    {"id":{"name":"ScrInstContactGen","path":"scripts/ScrInstContactGen/ScrInstContactGen.yy",},},
     {"id":{"name":"ScrMatrix22","path":"scripts/ScrMatrix22/ScrMatrix22.yy",},},
     {"id":{"name":"ScrRigidFunction","path":"scripts/ScrRigidFunction/ScrRigidFunction.yy",},},
     {"id":{"name":"ScrShape","path":"scripts/ScrShape/ScrShape.yy",},},

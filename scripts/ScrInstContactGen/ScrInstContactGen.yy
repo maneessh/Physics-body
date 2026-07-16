@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"ScrContactGen",
+  "%Name":"ScrInstContactGen",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ScrContactGen",
+  "name":"ScrInstContactGen",
   "parent":{
     "name":"Contact",
     "path":"folders/Script/Contact.yy",

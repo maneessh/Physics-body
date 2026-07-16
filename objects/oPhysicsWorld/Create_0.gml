@@ -20,3 +20,17 @@ rbObject = oRigidBody;
 GetDeltaTime = function (){
     return deltaTime * simulationSpeed;
 }
+
+
+
+// Contact
+maxContacts = 32;
+calculateIterations = false;
+contactResolver = new ContactResolver(64);
+contacts = array_create(maxContacts, undefined);
+for (var _i = 0; _i < maxContacts; _i++)
+{
+	contacts[_i] = new Contact();
+}
+nextContactIdx = 0;
+maxSpeedyChecks = 10;	// The max amount of extra collision checks to do per frame for speedy bodies

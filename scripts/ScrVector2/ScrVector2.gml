@@ -28,6 +28,10 @@ function Vector2(_x = 0, _y = 0) constructor {
         y = _v.y * _factor;
     }
     
+    static getCopy = function ()
+    {
+        return new Vector2(x , y);
+    }
     
     #region Properties
     
@@ -72,5 +76,34 @@ function Vector2(_x = 0, _y = 0) constructor {
         y += _v.y * _factor;
     }
     
+    #region applied operations
     
+    static invert = function ()
+    {
+        x = -x;
+        y = -y;
+        
+    }
+    
+    //_m = matrix
+    static multiplyMatrix22 = function (_m)
+    {
+        set(x * _m.data[0] + y * _m.data[1], x * _m.data[2] + y * _m.data[3]);
+    }
+    
+    #endregion
+    
+    #region Output operations
+    
+    // dot_product engine function 
+    static dotProduct = function (_x, _y) 
+    {
+        return dot_product(x , y, _x , _y); //
+    }
+    
+    static dotProductVector = function (_v){
+        return dot_product(x , y, _v.x , _v.y);
+    }
+    
+    #endregion
 }

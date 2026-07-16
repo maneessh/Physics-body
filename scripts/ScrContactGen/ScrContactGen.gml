@@ -173,8 +173,8 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 		// Wake up only the sleeping body
 		if (rb1.isAwake ^ rb2.isAwake)
 		{
-			if (rb1.isAwake) nbpSetAwake(rb2, true);
-			else nbpSetAwake(rb1, true);
+			if (rb1.isAwake) SetAwake(rb2, true);
+			else SetAwake(rb1, true);
 		}
 	}
 	
