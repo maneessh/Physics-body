@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Script5",
+  "%Name":"ScrContactGen",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Script5",
+  "name":"ScrContactGen",
   "parent":{
-    "name":"Physics_body",
-    "path":"Physics_body.yyp",
+    "name":"Script",
+    "path":"folders/Script.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

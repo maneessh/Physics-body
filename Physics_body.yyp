@@ -23,11 +23,12 @@
   },
   "name":"Physics_body",
   "resources":[
+    {"id":{"name":"oBall","path":"objects/oBall/oBall.yy",},},
     {"id":{"name":"oPhysicsWorld","path":"objects/oPhysicsWorld/oPhysicsWorld.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"oRigidBody","path":"objects/oRigidBody/oRigidBody.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
-    {"id":{"name":"Script5","path":"scripts/Script5/Script5.yy",},},
+    {"id":{"name":"ScrContactGen","path":"scripts/ScrContactGen/ScrContactGen.yy",},},
     {"id":{"name":"ScrMatrix22","path":"scripts/ScrMatrix22/ScrMatrix22.yy",},},
     {"id":{"name":"ScrRigidFunction","path":"scripts/ScrRigidFunction/ScrRigidFunction.yy",},},
     {"id":{"name":"ScrShape","path":"scripts/ScrShape/ScrShape.yy",},},
