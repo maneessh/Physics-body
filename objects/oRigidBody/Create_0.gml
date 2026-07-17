@@ -27,6 +27,13 @@ isAwake = true;
 //Used to prevent specific  bodies from being put to sleep, such as player
 canSleep = true;
 
+/*
+Will check collisions based on distance traveled rather than speed, making high
+speed bodies less likely to pass through walls.
+*/
+speedy = false;
+
+
 #endregion
 
 #region Environment Propertiess

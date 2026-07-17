@@ -200,21 +200,77 @@ function Integrate(_rb,_dt)
 #region Physic World
 
 
-function InitNextphysicsFrame(_pw)
+function InitNextphysicsFrame(_pw) //Inits the world before a simulation force 
 {
     with (_pw.rbObject) {
     	ClearForces(self.id);
     }
 }
-function RunPhysics(_pw, _dt)
+
+function RunPhysics(_pw, _dt) //Process all the physic within the simulation
 {
     if (_dt <= 0) return; // No movemnet, No Collision
         
-    with (_pw.rbObject) {
+    with (_pw.rbObject) { //Integrate Bodies
     	Integrate(self.id, _dt);
     }
     
     
+}
+
+//Calls all contact generators and reports their contacts, returning the number of contacts 
+function GenerateContacts (_pw)
+{
+    //Init contact cursor
+    var _limit = _pw.maxContacts; // Max Contacts
+    _pw.nextContactIdx = 0; // The index where the next contact will be stored
+    
+    
+    with (_pw.rbObject) {
+    	
+        contacts = [];
+        var _checkLeft = _pw.maxSpeedyChecks; // For fast Object5
+        
+        with (true) {
+        	var _contacts = 0;
+            
+            for (var _i = 0; _i < array_length(contactGens); _i++) {
+            	
+                var _used = contactGens[_i].addContact(self.id, _pw._limit);
+                _limit -= _used;
+                _contacts += _used;
+                
+                if (_used > 0) array_push(contacts, _pw.contacts[_pw.nextContactIdx]); 
+                _pw.nextContactIdx += _used;
+                
+                if (_limit) return _pw.maxContacts;
+            }
+            
+            // Break if: 1.) not a speedy object, 2.) speedy, but not speeding, 3.) speedy, speeding, but already hit something
+			if (!speedy || speedOverflow <= 0 || _contacts > 0) break;
+			// Alright, you're speeding. We'll process you a bit more.
+			else
+			{
+				// Break if no more speed overflow
+				if (speedOverflow <= 0) break;   
+				
+				// Move by clamped speed (but need actual speed to normalize)
+				var _speed = velocity.magnitude();
+				var _speedClamped = min(nbpGetRadius(self.id), speedOverflow);
+				x += velocity.x / _speed * _speedClamped;
+				y += velocity.y / _speed * _speedClamped;
+				
+				// Update speed overflow
+				speedOverflow -= _speedClamped;
+				
+				// Check limit
+				_checksLeft--;
+				if (_checksLeft <= 0) break;
+            }
+        }
+    }
+    // Return contacts used
+	return _pw.maxContacts - _limit;
 }
 #endregion
 
