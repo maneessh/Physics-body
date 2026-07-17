@@ -59,6 +59,7 @@ collisionBitmaskString = "10000000";		// Updates everytime the bitmask is change
 Holds all contacts generated this frame.
 */
 contacts = [];
+
 #endregion
 
 
