@@ -8,7 +8,7 @@ SetAwake(self.id, true);
 canSleep = false;
 
 //Set Shape
-SetShape(self.id,Shape.RECT);
+SetShape(self.id,Shape.RECT_ROTATED);
 
 //Friction
 damping = 0.1;

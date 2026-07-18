@@ -215,6 +215,18 @@ function RunPhysics(_pw, _dt) //Process all the physic within the simulation
     	Integrate(self.id, _dt);
     }
     
+    // Generate contacts
+	var _usedContacts = GenerateContacts(_pw);
+	
+	// Process contacts
+	if (_usedContacts > 0)
+	{
+		with (_pw)
+		{
+			if (calculateIterations) contactResolver.setIterations(_usedContacts * 2);
+			contactResolver.resolveContacts(contacts, _usedContacts, _dt);
+		}
+	}
     
 }
 
@@ -231,22 +243,29 @@ function GenerateContacts (_pw)
         contacts = [];
         var _checkLeft = _pw.maxSpeedyChecks; // For fast Object5
         
-        with (true) {
-        	var _contacts = 0;
-            
-            for (var _i = 0; _i < array_length(contactGens); _i++) {
-            	
-                var _used = contactGens[_i].addContact(self.id, _pw._limit);
-                _limit -= _used;
-                _contacts += _used;
-                
-                if (_used > 0) array_push(contacts, _pw.contacts[_pw.nextContactIdx]); 
-                _pw.nextContactIdx += _used;
-                
-                if (_limit) return _pw.maxContacts;
-            }
-            
-            // Break if: 1.) not a speedy object, 2.) speedy, but not speeding, 3.) speedy, speeding, but already hit something
+        // Loop for checking speedy bodiesw
+		while (true)
+		{
+			// Loop through registered contact generators
+			var _contacts = 0;
+			for (var _i = 0; _i < array_length(contactGens); _i++)
+			{
+				// Check for contacts
+				var _used = contactGens[_i].addContact(self.id, _pw, _limit);
+				_limit -= _used;
+				_contacts += _used;
+			
+				// Add to contacts
+				if (_used > 0) array_push(contacts, _pw.contacts[_pw.nextContactIdx]);
+			
+				// Increment index
+				_pw.nextContactIdx += _used;
+			
+				// Return if limit reached (meaning we'll have to ignore some contacts this step)
+				if (_limit <= 0) return _pw.maxContacts;
+			}
+			
+			// Break if: 1.) not a speedy object, 2.) speedy, but not speeding, 3.) speedy, speeding, but already hit something
 			if (!speedy || speedOverflow <= 0 || _contacts > 0) break;
 			// Alright, you're speeding. We'll process you a bit more.
 			else
