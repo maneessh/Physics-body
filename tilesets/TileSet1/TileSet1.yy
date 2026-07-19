@@ -12,8 +12,8 @@
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
-    "name":"Physics_body",
-    "path":"Physics_body.yyp",
+    "name":"Tile",
+    "path":"folders/Tile.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",

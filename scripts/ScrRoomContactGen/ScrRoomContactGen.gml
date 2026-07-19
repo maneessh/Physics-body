@@ -8,6 +8,7 @@ function RoomContactGen(_height,_bounciness) : ContactGen() constructor {
     bounciness = _bounciness;
     
     
+    //_limit = the number of contacts that can be written here 
     static addContact = function (_rb, _pw , _limit)
     {
         
@@ -22,8 +23,8 @@ function RoomContactGen(_height,_bounciness) : ContactGen() constructor {
         //Fillout contact data
         _contact.rb1 = _rb;
         _contact.restitution = bounciness;
-        _contact.normal = new Vector2(0 , -1);
-        _contact.penetration = _rb.bbox_bottom - height;
+        _contact.normal = new Vector2(0 , -1); //Normal = First body
+        _contact.penetration = _rb.bbox_bottom - height; // penetration = how much body is iteracting
         
         
         //Hit floor
