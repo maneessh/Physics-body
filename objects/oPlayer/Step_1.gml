@@ -9,4 +9,4 @@ moveInput.scale(moveStrength);
 //ADD force
 AddforceVector(self.id, moveInput);
 
-//SetAngle(self.id , image_angle + 1);
+SetAngle(self.id , image_angle + 1);

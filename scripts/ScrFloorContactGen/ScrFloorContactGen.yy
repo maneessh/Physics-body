@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ScrFloorContactGen",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ScrFloorContactGen",
+  "parent":{
+    "name":"Contact",
+    "path":"folders/Script/Contact.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

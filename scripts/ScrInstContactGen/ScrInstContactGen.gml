@@ -3,7 +3,7 @@
 function InstContactGen() : ContactGen() constructor
 {
     
-    show_debug_message("New InstContactGen")
+
 	name = "instance";
 	
 	///	@func	addContact(rb, pw, limit);

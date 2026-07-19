@@ -1,0 +1,6 @@
+function FloorContactGen(){
+
+    
+    name = "Floor"
+    
+}

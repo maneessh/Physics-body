@@ -30,6 +30,13 @@ nextContactIdx = 0;
 maxSpeedyChecks = 10;	// The max amount of extra collision checks to do per frame for speedy bodies
 
 
+//Store tile size 
+tw = 16;
+th = 16;
+
+var Layer_Id = layer_get_id("Tiles_1");
+tm = layer_tilemap_get_id(Layer_Id);
+
 
 
 // GetDeltaTime
