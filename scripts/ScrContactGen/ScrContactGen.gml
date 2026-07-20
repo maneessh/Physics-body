@@ -9,6 +9,7 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	rb2 = _rb2;						// The second body involved.
 	restitution = 1;				// How quickly bodies separate (1 = bounce apart, 0 = stick together).
 	normal = new Vector2();			// The contact normal from the perspective of the first body.
+    point = new Vector2();
 	penetration = 0;				// How much the bodies are intersecting.
 	rb1Movement = new Vector2();	// How much the first body moved during interpenetration resolution.
 	rb2Movement = new Vector2();	// How much the second body moved during interpenetration resolution.
@@ -21,6 +22,7 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 		delete normal;
 		delete rb1Movement;
 		delete rb2Movement;
+        delete point;
 	}
 	
 	///	@func	resolve(dt);
@@ -161,6 +163,7 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 		penetration = 0;
 		rb1Movement.set();
 		rb2Movement.set();
+        point.set();
 	}
 	
 	///	@func	matchAwakeState();

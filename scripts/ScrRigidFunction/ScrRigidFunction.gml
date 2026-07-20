@@ -111,6 +111,28 @@ function SetAwake(_rb, _awake = true){
 
 
 
+
+function GetInertia(_rb){
+    if (_rb.inverseInertia == 0) return infinity;
+    return 1 / _rb.inverseInertia;
+}
+
+function SetInertia(_rb, _inertia){
+    if (_inertia == 0) throw ("Set inertia error. Inertia can't be zero");
+    _rb.inverseInertia = 1 / _inertia;
+}
+
+// Convenience: rectangle inertia about centroid, I = m(w² + h²)/12
+function SetInertiaRect(_rb, _mass, _w, _h){
+    var _i = _mass * (_w*_w + _h*_h) / 12;
+    SetInertia(_rb, _i);
+}
+
+// Convenience: solid disc inertia, I = m*r²/2
+function SetInertiaCircle(_rb, _mass, _r){
+    SetInertia(_rb, _mass * _r * _r / 2);
+}
+
 #endregion
 
 #region Properties
@@ -191,9 +213,35 @@ function Integrate(_rb,_dt)
     y += _vy;
         
         
+     // --- Angular (new) ---
+        var _angularAccel = torque * inverseInertia;
+        angularVelocity += _angularAccel * _dt;
+        angularVelocity *= power(angularDamping, _dt);
+
+        image_angle += angularVelocity * _dt;
+        orientation.setRotation(-image_angle); // keep matrix in sync, per your SetAngle convention
+    
+        
     }
     
-    show_debug_message(string(force.x) + ", " + string(force.y) + " mass=" + string(inverseMass));
+    
+}
+
+// _point is world-space application point; torque = r × F (2D cross product, scalar)
+function AddForceAtPoint(_rb, _fx, _fy, _px, _py){
+    with (_rb) {
+        force.add(_fx, _fy);
+        
+        var _rx = _px - x;
+        var _ry = _py - y;
+        torque += (_rx * _fy) - (_ry * _fx); // r × F
+        
+        if (!isAwake) SetAwake(id, true);
+    }
+}
+
+function ClearTorque(_rb){
+    _rb.torque = 0;
 }
 
 

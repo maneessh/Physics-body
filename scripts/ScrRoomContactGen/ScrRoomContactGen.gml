@@ -3,9 +3,9 @@ function RoomContactGen(_height,_bounciness) : ContactGen() constructor {
     
     name = "Room";
     
-    
-    height = _height;
     bounciness = _bounciness;
+    height = _height;
+ 
     
     
     //_limit = the number of contacts that can be written here 
@@ -29,6 +29,8 @@ function RoomContactGen(_height,_bounciness) : ContactGen() constructor {
         
         //Hit floor
         return 1;
+        
+        
     }
 }
 

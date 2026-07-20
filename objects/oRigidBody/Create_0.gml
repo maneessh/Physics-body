@@ -22,7 +22,7 @@ orientation = new Matrix22( -image_angle);
 
 
 //Rigid bodies can be put to sleep to avoid integration/Collision functions.
-isAwake = true;
+isAwake = false;
 
 //Used to prevent specific  bodies from being put to sleep, such as player
 canSleep = true;
@@ -76,6 +76,16 @@ velocity = new Vector2();       //Updates the position every frame, velocity = d
 acceleration = new Vector2();   //Updates the velocity every frame, acceleration = velocity / time
 force = new Vector2();          //Used to calculate accleration every frame, forece = maxx x accleration
 prev_force = new Vector2();     //Storing previous force.
+
+#endregion
+
+
+#region Angular Movement
+
+angularVelocity = 0;           // radians/sec, signed (+ = clockwise in GM's coord system)
+torque = 0;                    // accumulated torque this frame
+inverseInertia = 1;            // set via SetInertia(), like inverseMass
+angularDamping = 0.995;        // same idea as linear damping
 
 #endregion
 
