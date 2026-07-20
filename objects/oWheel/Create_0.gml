@@ -9,5 +9,6 @@ damping = 0.1;
 
 rotSpeed = 1;
 
+
 //Shape
 SetShape(self.id, Shape.RECT_ROTATED);

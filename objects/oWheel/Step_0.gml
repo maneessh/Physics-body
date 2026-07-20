@@ -1,1 +1,3 @@
-SetAngle(self.id, image_angle + rotSpeed);
+
+
+SetAngle(self.id, image_angle + rotSpeed );

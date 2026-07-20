@@ -213,15 +213,7 @@ function Integrate(_rb,_dt)
     y += _vy;
         
         
-     // --- Angular (new) ---
-        var _angularAccel = torque * inverseInertia;
-        angularVelocity += _angularAccel * _dt;
-        angularVelocity *= power(angularDamping, _dt);
-
-        image_angle += angularVelocity * _dt;
-        orientation.setRotation(-image_angle); // keep matrix in sync, per your SetAngle convention
     
-        
     }
     
     
