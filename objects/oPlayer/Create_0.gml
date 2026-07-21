@@ -18,4 +18,3 @@ damping = 0.1;
 cgInst = new InstContactGen();//For instances
 cgFloor = new FloorContactGen(); //For Floor
 cgRoom = new RoomContactGen(room_height - 16 , 1);//Foor Room
-`
