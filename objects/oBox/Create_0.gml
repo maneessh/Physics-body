@@ -14,14 +14,11 @@ var _point4 = create_verlet_point(x1, y1 + sprite_height , points);
 
 
 sticks = ds_list_create();
-create_verlet_point(_point1, _point2, sticks);
-create_verlet_point(_point2, _point3, sticks);
-create_verlet_point(_point3, _point4, sticks);
-create_verlet_point(_point4, _point1, sticks);
+create_verlet_stick(_point1, _point2, sticks);
+create_verlet_stick(_point2, _point3, sticks);
+create_verlet_stick(_point3, _point4, sticks);
+create_verlet_stick(_point4, _point1, sticks);
 
-var _new_stick = create_verlet_point(_point1, _point3 , sticks);
+var _new_stick = create_verlet_stick(_point1, _point3 , sticks);
 _new_stick.visible = false;
 
-visible = VERLET_DEBUG_DRAW
-
-#macro VERLET_DEBUG_DRAW false

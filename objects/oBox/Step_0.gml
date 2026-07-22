@@ -18,14 +18,14 @@ for (var i = 0; i < ds_list_size(points); i++) {
         
         var _air_friction = 0.90;
         var _bounce = 0.5;
-        var _grav = 0.5;
+        var _grav = 1.5;
         
 
         
         var _vx = (x - oldx) * _air_friction;
         var _vy = (y - oldy) * _air_friction;
         var _new_x = x + _vx;
-        var _new_y = y + _vy;
+        var _new_y = y + _vy + _grav;
         oldx = x;
         oldy = y;
         x = _new_x;
@@ -78,9 +78,9 @@ for (var _update_count  = 0; _update_count < 4; _update_count++; ) {
             
             }
         
-            var _floor = min(room_height - _border_width, room_width.bbox_top);
+            var _floor = room_height - _border_width;
             if y < _border_width || _floor < y {
-        	   var _vy = y - _oldy;
+        	   var _vy = y - oldy;
                 y = clamp(y , _border_width, _floor);
                 oldy = y + _vy * _bounce;
             }
