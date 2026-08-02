@@ -20,5 +20,5 @@ create_verlet_stick(_point3, _point4, sticks);
 create_verlet_stick(_point4, _point1, sticks);
 
 var _new_stick = create_verlet_stick(_point1, _point3 , sticks);
-_new_stick.visible = false;
+_new_stick.visible = true;
 

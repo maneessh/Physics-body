@@ -18,7 +18,7 @@ function FloorContactGen( _bounciness = 1)   : ContactGen() constructor {
         
         if (tilemap_get_at_pixel(_tm ,_mid_x , _rb.bbox_bottom)) {
             
-            show_debug_message("Tiles top ")
+            
         	
             var _tileTop = floor(_rb.bbox_bottom / _th) * _th;
             var _pen = _rb.bbox_bottom - _tileTop;

@@ -257,6 +257,13 @@ function RunPhysics(_pw, _dt) //Process all the physic within the simulation
     
     // Generate contacts
 	var _usedContacts = GenerateContacts(_pw);
+    
+    for (var i = 0; i < ds_list_size(soft_bodies); i++)
+{
+    var sb = soft_bodies[| i];
+
+    IntergrateSoftBody(sb.id, _dt);
+}
 	
 	// Process contacts
 	if (_usedContacts > 0)
@@ -335,6 +342,86 @@ function GenerateContacts (_pw)
 
 
 #endregion
+#endregion
+
+
+#region Soft Body
+
+function InitSoftBody(_sb, _x , _y , _w , _h , _iterations = 4)
+{
+    with (_sb ) {
+    	points = ds_list_create();
+        sticks = ds_list_create();
+        iterations = _iterations;
+        
+        p_tl = AddSoftPoint(self.id, _x , _y );
+        p_tr = AddSoftPoint(self.id, _x + _w , _y );
+        p_br = AddSoftPoint(self.id, _x + _w , _y + _h );
+        p_bl = AddSoftPoint(self.id, _x , _y + _h );
+        
+        AddSoftStick(self.id, p_tl, p_tr);
+        AddSoftStick(self.id, p_tr, p_br);
+        AddSoftStick(self.id, p_br, p_bl);
+        AddSoftStick(self.id, p_bl, p_tl);
+        
+        var _brace = AddSoftStick(self.id, p_tl, p_br);
+        _brace_visible = false;
+    }
+}
+
+
+
+function AddSoftPoint(_sb, _x , _y)
+{
+    var _p = { x : _x, y : _y , oldx : _x , oldy : _y };
+    ds_list_add(_sb.points, _p);
+    return _p;
+}
+
+function AddSoftStick(_sb, _p1 , _p2)
+{
+    var _s = {
+        point1 : _p1,
+        point2 : _p2,
+        length : point_distance(_p1.x , _p1.y, _p2.x , _p2.y),
+        visible : true
+    };
+    ds_list_add(_sb.sticks, _s);
+    return _s;
+}
+
+function IntergrateSoftBody(_sb, _dt)
+{
+    with (_sb) {
+    	for (var i = 0; i < ds_list_size(points); i++) {
+        	var _p = points[| i];
+            var _friction = 0.98;
+            var _vx = (_p.x - _p.oldx) * _friction;
+            var _vy = (_p.y - _p.oldy) * _friction;
+            _p.oldx = _p.x;
+            _p.oldy = _p.y;
+            _p.x += _vx;
+            _p.y += _vy;
+        }
+        
+        repeat (iterations) {
+        	for (var i = 0; i < ds_list_size(sticks); i++) {
+            	var _s = sticks[| i];
+                var _dx = _s.point2.x - _s.point1.x;
+                var _dy = _s.point2.y - _s.point1.y;
+                var _dist = point_distance(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
+                var _diff = (_s.length - _dist) / _dist / 2;
+                _s.point1.x -= _dx * _diff;
+                _s.point1.y -= _dy * _diff;
+                _s.point2.x += _dx * _diff;
+                _s.point2.y += _dy * _diff;
+                
+            }
+        }
+    }
+}
+
+
 #endregion
 
 #region Debug
