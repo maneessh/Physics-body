@@ -245,6 +245,7 @@ function InitNextphysicsFrame(_pw) //Inits the world before a simulation force
     with (_pw.rbObject) {
     	ClearForces(self.id);
     }
+    
 }
 
 function RunPhysics(_pw, _dt) //Process all the physic within the simulation
@@ -258,9 +259,9 @@ function RunPhysics(_pw, _dt) //Process all the physic within the simulation
     // Generate contacts
 	var _usedContacts = GenerateContacts(_pw);
     
-    for (var i = 0; i < ds_list_size(soft_bodies); i++)
+    for (var i = 0; i < ds_list_size(_pw.soft_bodies); i++)
 {
-    var sb = soft_bodies[| i];
+    var sb = _pw.soft_bodies[| i];
 
     IntergrateSoftBody(sb.id, _dt);
 }
@@ -365,7 +366,7 @@ function InitSoftBody(_sb, _x , _y , _w , _h , _iterations = 4)
         AddSoftStick(self.id, p_bl, p_tl);
         
         var _brace = AddSoftStick(self.id, p_tl, p_br);
-        _brace_visible = false;
+        _brace.visible = false;
     }
 }
 
@@ -395,13 +396,13 @@ function IntergrateSoftBody(_sb, _dt)
     with (_sb) {
     	for (var i = 0; i < ds_list_size(points); i++) {
         	var _p = points[| i];
-            var _friction = 0.98;
-            var _vx = (_p.x - _p.oldx) * _friction;
-            var _vy = (_p.y - _p.oldy) * _friction;
+            
+            var _vx = (_p.x - _p.oldx) * frictions;
+            var _vy = (_p.y - _p.oldy) * frictions;
             _p.oldx = _p.x;
             _p.oldy = _p.y;
             _p.x += _vx;
-            _p.y += _vy;
+            _p.y += _vy + (grav.y  * _dt);
         }
         
         repeat (iterations) {
@@ -420,6 +421,15 @@ function IntergrateSoftBody(_sb, _dt)
         }
     }
 }
+
+function DestroySoftBody(_sb)
+{
+    with (_sb) {
+        ds_list_destroy(points);
+        ds_list_destroy(sticks);
+    }
+}
+
 
 
 #endregion

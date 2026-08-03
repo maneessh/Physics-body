@@ -30,6 +30,7 @@
     {"id":{"name":"oPhysicsWorld","path":"objects/oPhysicsWorld/oPhysicsWorld.yy",},},
     {"id":{"name":"oPlayer","path":"objects/oPlayer/oPlayer.yy",},},
     {"id":{"name":"oRigidBody","path":"objects/oRigidBody/oRigidBody.yy",},},
+    {"id":{"name":"oSoftBody","path":"objects/oSoftBody/oSoftBody.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"ScrContactGen","path":"scripts/ScrContactGen/ScrContactGen.yy",},},
     {"id":{"name":"ScrCreate","path":"scripts/ScrCreate/ScrCreate.yy",},},

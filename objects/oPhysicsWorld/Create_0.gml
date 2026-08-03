@@ -22,7 +22,7 @@ function add_soft_body(_body) {
 
 //Bodies 
 rbObject = oRigidBody;
-sbObject = soft_bodies;
+sbObject = oSoftBody;
 
 
 
@@ -32,6 +32,7 @@ maxContacts = 32;
 calculateIterations = false;
 contactResolver = new ContactResolver(64);
 contacts = array_create(maxContacts, undefined);
+
 for (var _i = 0; _i < maxContacts; _i++)
 {
 	contacts[_i] = new Contact();
