@@ -12,13 +12,7 @@ deltaTime = 1 / game_get_speed(gamespeed_fps);
 simulationSpeed = 1;
 
 
-// Create event addition
-soft_bodies = ds_list_create();
 
-function add_soft_body(_body) {
-    ds_list_add(soft_bodies, _body);
-    return _body;
-}
 
 //Bodies 
 rbObject = oRigidBody;

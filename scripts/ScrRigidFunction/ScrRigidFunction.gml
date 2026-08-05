@@ -259,11 +259,8 @@ function RunPhysics(_pw, _dt) //Process all the physic within the simulation
     // Generate contacts
 	var _usedContacts = GenerateContacts(_pw);
     
-    for (var i = 0; i < ds_list_size(_pw.soft_bodies); i++)
-{
-    var sb = _pw.soft_bodies[| i];
-
-    IntergrateSoftBody(sb.id, _dt);
+  with (_pw.sbObject) {
+    IntergrateSoftBody(self.id, _dt);
 }
 	
 	// Process contacts
@@ -394,6 +391,7 @@ function AddSoftStick(_sb, _p1 , _p2)
 function IntergrateSoftBody(_sb, _dt)
 {
     with (_sb) {
+        show_debug_message("1");
     	for (var i = 0; i < ds_list_size(points); i++) {
         	var _p = points[| i];
             
@@ -404,8 +402,9 @@ function IntergrateSoftBody(_sb, _dt)
             _p.x += _vx;
             _p.y += _vy + (grav.y  * _dt);
         }
-        
+        show_debug_message(string(points[| 0].y));
         repeat (iterations) {
+            show_debug_message("2");
         	for (var i = 0; i < ds_list_size(sticks); i++) {
             	var _s = sticks[| i];
                 var _dx = _s.point2.x - _s.point1.x;
@@ -420,6 +419,10 @@ function IntergrateSoftBody(_sb, _dt)
             }
         }
     }
+    
+    //Upadating the postion
+    x = (p_tl.x + p_tr.x + p_br.x + p_bl.x) * 0.25;
+    y = (p_tl.y + p_tr.y + p_br.y + p_bl.y) * 0.25;
 }
 
 function DestroySoftBody(_sb)
@@ -494,6 +497,26 @@ function DrawCircle(_rb)
         draw_circle(x, y,GetRadius(self.id), true);
         // Reset color
         draw_set_color(c_white);
+    }
+}
+
+function DrawSoftBody(_sb)
+{
+    with (_sb) {
+        // Fill using a triangle fan from the first point
+        draw_primitive_begin(pr_trianglefan);
+        draw_vertex(p_tl.x, p_tl.y);
+        draw_vertex(p_tr.x, p_tr.y);
+        draw_vertex(p_br.x, p_br.y);
+        draw_vertex(p_bl.x, p_bl.y);
+        draw_primitive_end();
+
+        // Outline the sticks (skip invisible braces)
+        for (var i = 0; i < ds_list_size(sticks); i++) {
+            var _s = sticks[| i];
+            if (!_s.visible) continue;
+            draw_line(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
+        }
     }
 }
 

@@ -1,4 +1,4 @@
 // Inherit the parent event
 event_inherited();
 
-grav.y = 12;
+grav.y = 1;
