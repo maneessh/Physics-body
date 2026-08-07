@@ -1,4 +1,5 @@
 // Inherit the parent event
+//Create event oBall
 event_inherited();
 
-grav.y = 1;
+grav.y = 18;  

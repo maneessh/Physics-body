@@ -4,8 +4,8 @@ width = 32;
 height = 32; 
 
 
-points = ds_list_create();
-sticks = ds_list_create();
+
+
 
 iterations = 4;
 frictions = 0.98;

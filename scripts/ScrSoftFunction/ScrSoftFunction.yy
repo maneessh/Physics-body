@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ScrSoftFunction",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ScrSoftFunction",
+  "parent":{
+    "name":"Script",
+    "path":"folders/Script.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

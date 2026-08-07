@@ -83,7 +83,7 @@ for (var _update_count  = 0; _update_count < 4; _update_count++; ) {
         	   var _vy = y - oldy;
                 y = clamp(y , _border_width, _floor);
                 oldy = y + _vy * _bounce;
-            }
+            } 
         }
     }
 #endregion

@@ -1,11 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"oSoftBody",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"oFloor",
+  "eventList":[],
   "managed":true,
-  "name":"oSoftBody",
+  "name":"oFloor",
   "overriddenProperties":[],
   "parent":{
     "name":"Object",
@@ -29,7 +27,13 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
-  "spriteMaskId":null,
+  "spriteId":{
+    "name":"Sprite7",
+    "path":"sprites/Sprite7/Sprite7.yy",
+  },
+  "spriteMaskId":{
+    "name":"Sprite7",
+    "path":"sprites/Sprite7/Sprite7.yy",
+  },
   "visible":true,
 }
