@@ -15,5 +15,5 @@ bounciness = 0.5;
 grav = new Vector2(0 , 0.5);
 
 
-InitSoftBody(self.id ,x , y , width , height , iterations);
+InitSoftBody(self.id ,x , y , iterations);
 

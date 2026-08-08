@@ -4,7 +4,7 @@
 
 #region Soft Body
 
-function InitSoftBody(_sb, _x , _y , _w , _h , _iterations = 4)
+function InitSoftBody(_sb, _x , _y , _iterations = 4)
 {
     with (_sb ) {
     	points = ds_list_create();
@@ -12,9 +12,9 @@ function InitSoftBody(_sb, _x , _y , _w , _h , _iterations = 4)
         iterations = _iterations;
         
         p_tl = AddSoftPoint(self.id, _x , _y );
-        p_tr = AddSoftPoint(self.id, _x + _w , _y );
-        p_br = AddSoftPoint(self.id, _x + _w , _y + _h );
-        p_bl = AddSoftPoint(self.id, _x , _y + _h );
+        p_tr = AddSoftPoint(self.id, _x + width  , _y );
+        p_br = AddSoftPoint(self.id, _x + width , _y + height );
+        p_bl = AddSoftPoint(self.id, _x , _y + height );
         
         AddSoftStick(self.id, p_tl, p_tr);
         AddSoftStick(self.id, p_tr, p_br);
@@ -50,22 +50,19 @@ function AddSoftStick(_sb, _p1 , _p2)
 function IntergrateSoftBody(_sb, _dt)
 {
     with (_sb) {
-        show_debug_message("1");
-    	for (var i = 0; i < ds_list_size(points); i++) {
-        	var _p = points[| i];
-            
+        for (var i = 0; i < ds_list_size(points); i++) {
+            var _p = points[| i];
             var _vx = (_p.x - _p.oldx) * frictions;
             var _vy = (_p.y - _p.oldy) * frictions;
             _p.oldx = _p.x;
             _p.oldy = _p.y;
             _p.x += _vx;
-            _p.y += _vy + (grav.y  * _dt);
+            _p.y += _vy + (grav.y * _dt);
         }
-        show_debug_message(string(points[| 0].y));
+
         repeat (iterations) {
-            show_debug_message("2");
-        	for (var i = 0; i < ds_list_size(sticks); i++) {
-            	var _s = sticks[| i];
+            for (var i = 0; i < ds_list_size(sticks); i++) {
+                var _s = sticks[| i];
                 var _dx = _s.point2.x - _s.point1.x;
                 var _dy = _s.point2.y - _s.point1.y;
                 var _dist = point_distance(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
@@ -74,38 +71,31 @@ function IntergrateSoftBody(_sb, _dt)
                 _s.point1.y -= _dy * _diff;
                 _s.point2.x += _dx * _diff;
                 _s.point2.y += _dy * _diff;
-                
             }
         }
-        
-        // Calculate soft body's center
+
+        // FLOOR COLLISION — now inside with(_sb), before centroid
+        var _floor_y = room_height - 16;
+        for (var i = 0; i < ds_list_size(points); i++) {
+            var _p = points[| i];
+            if (_p.y >= _floor_y) {
+                var _vy = (_p.y - _p.oldy) * -bounciness;
+                _p.y = _floor_y;
+                _p.oldy = _p.y + _vy;
+            }
+        }
+
+        // Calculate centroid — now sees corrected positions
         x = 0;
         y = 0;
-
-    for (var i = 0; i < ds_list_size(points); i++)
-    {
-        var p = points[| i];
-        x += p.x;
-        y += p.y;
+        for (var i = 0; i < ds_list_size(points); i++) {
+            var _p = points[| i];
+            x += _p.x;
+            y += _p.y;
+        }
+        x /= ds_list_size(points);
+        y /= ds_list_size(points);
     }
-
-    x /= ds_list_size(points);
-    y /= ds_list_size(points);
-    }
-    
-    // =========================
-            // FLOOR COLLISION
-            // =========================
-            var floor_y = room_height - 128;
-
-            if (p.y >= floor_y)
-            {
-                p.y = floor_y;
-
-                // Stop downward velocity
-                p.old_y = p.y;
-            }
-    
 }
 
 function DestroySoftBody(_sb)
