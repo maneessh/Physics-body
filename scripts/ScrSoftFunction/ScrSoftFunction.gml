@@ -50,10 +50,13 @@ function AddSoftStick(_sb, _p1 , _p2)
 function IntergrateSoftBody(_sb, _dt)
 {
     with (_sb) {
+        //Calculate Velocity
         for (var i = 0; i < ds_list_size(points); i++) {
             var _p = points[| i];
+            //Calculate Velocity
             var _vx = (_p.x - _p.oldx) * frictions;
             var _vy = (_p.y - _p.oldy) * frictions;
+            //Old pos
             _p.oldx = _p.x;
             _p.oldy = _p.y;
             _p.x += _vx;
@@ -63,8 +66,10 @@ function IntergrateSoftBody(_sb, _dt)
         repeat (iterations) {
             for (var i = 0; i < ds_list_size(sticks); i++) {
                 var _s = sticks[| i];
+                //Direction from point1  to  point2
                 var _dx = _s.point2.x - _s.point1.x;
                 var _dy = _s.point2.y - _s.point1.y;
+                //The current distance 
                 var _dist = point_distance(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
                 var _diff = (_s.length - _dist) / _dist / 2;
                 _s.point1.x -= _dx * _diff;
@@ -75,7 +80,7 @@ function IntergrateSoftBody(_sb, _dt)
         }
 
         // FLOOR COLLISION — now inside with(_sb), before centroid
-        var _floor_y = room_height - 16;
+        var _floor_y = room_height - 32;
         for (var i = 0; i < ds_list_size(points); i++) {
             var _p = points[| i];
             if (_p.y >= _floor_y) {

@@ -19,3 +19,4 @@ if (keyboard_check(vk_left))
         p.oldx -= 2;
     }
 }
+ 

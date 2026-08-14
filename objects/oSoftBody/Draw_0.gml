@@ -1,1 +1,0 @@
-DrawSoftBody(self.id);

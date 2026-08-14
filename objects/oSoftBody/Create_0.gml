@@ -1,9 +1,9 @@
 //Create event of SoftBody
 
-width = 32;
-height = 32; 
 
 
+width = sprite_width;
+height = sprite_height;
 
 
 
