@@ -71,13 +71,17 @@ function IntergrateSoftBody(_sb, _dt)
                 var _dy = _s.point2.y - _s.point1.y;
                 //The current distance 
                 var _dist = point_distance(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
+                //How much correction is required ? Why /2 ? moving both points.
                 var _diff = (_s.length - _dist) / _dist / 2;
+                
+                
                 _s.point1.x -= _dx * _diff;
                 _s.point1.y -= _dy * _diff;
                 _s.point2.x += _dx * _diff;
                 _s.point2.y += _dy * _diff;
             }
         }
+        
 
         // FLOOR COLLISION — now inside with(_sb), before centroid
         var _floor_y = room_height - 32;

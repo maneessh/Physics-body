@@ -1,18 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"oBox",
+  "%Name":"obox",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oBox",
+  "name":"obox",
   "overriddenProperties":[],
   "parent":{
     "name":"Object",
     "path":"folders/Object.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oSoftBody",
+    "path":"objects/oSoftBody/oSoftBody.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Sprite6",
-    "path":"sprites/Sprite6/Sprite6.yy",
+    "name":"Sprite1",
+    "path":"sprites/Sprite1/Sprite1.yy",
   },
   "spriteMaskId":null,
   "visible":true,
