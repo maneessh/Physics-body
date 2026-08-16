@@ -37,7 +37,7 @@ for (var i = 0; i < ds_list_size(points); i++) {
 
 #endregion
 
-for (var _update_count  = 0; _update_count < 4; _update_count++; ) {
+for (var _update_count  = 0; _update_count < 4; _update_count++ ) {
 	#region update sticks
     
     for (var i = 0; i < ds_list_size(sticks); i++) {

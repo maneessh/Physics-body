@@ -4,9 +4,12 @@
 
 #region Soft Body
 
-function InitSoftBody(_sb, _x , _y , _iterations = 4)
+function InitSoftBox(_sb, _x , _y , _iterations = 4)
 {
     with (_sb ) {
+        
+        shape = "box";
+        
     	points = ds_list_create();
         sticks = ds_list_create();
         iterations = _iterations;
@@ -23,6 +26,60 @@ function InitSoftBody(_sb, _x , _y , _iterations = 4)
         
         var _brace = AddSoftStick(self.id, p_tl, p_br);
         _brace.visible = false;
+    }
+}
+
+function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 6)
+{
+    with (_sb) {
+        
+        shape = "ball";
+    	//Create the soft_ball data
+        points = ds_list_create();
+        sticks = ds_list_create();
+        iterations = _iterations;
+        
+        //Create point around the circle
+        for (var i = 0; i < _point_count; i++) 
+        {
+            var _angle = ( i / _point_count) * 2 * pi;
+            
+            //px = center_x + radius
+            //py = center_y
+            var _px = _x + cos(_angle) * _radius;
+            var _py = _y + sin(_angle) * _radius;
+            
+            AddSoftPoint(self.id , _px , _py);
+        	
+        }
+        
+        //Connect the neighboring points
+        
+        for (var i = 0; i < _point_count; i++) 
+        {
+            var _next = ( i + 1) mod _point_count;
+            
+            var _p1 = points[|i];
+            var _p2 = points[|_next];
+            
+            AddSoftStick(self.id, _p1 , _p2);
+        }
+        
+        //Internal Support
+        for (var i = 0; i < _point_count / 2; i++) 
+        {
+            var _opposite = ( i + _point_count / 2) mod _point_count;
+            var _p1 = points[|i];
+            var _p2 = points[|_opposite];
+            
+            var _brace = AddSoftStick(self.id, _p1 , _p2);
+
+        	
+        }
+        
+        
+        
+        
     }
 }
 
@@ -104,7 +161,27 @@ function IntergrateSoftBody(_sb, _dt)
         }
         x /= ds_list_size(points);
         y /= ds_list_size(points);
+        
+        
+        //var _p1 = points[|0];
+        //var _p2 = points[|1];
+        //x = _p1.x;
+        //y = _p1.y;
+        //image_angle = point_direction(_p1.x, _p1.y,_p2.x,_p2.y);
+        
+        
+        
+// Orientation from two anchor points (pick two that mean something for your shape)
+var _p1 = points[| 0];
+var _p2 = points[| 1];
+x = _p1.x;
+y = _p1.y;
+image_angle = point_direction(_p1.x, _p1.y, _p2.x, _p2.y);
+        
+
     }
+    
+    
 }
 
 function DestroySoftBody(_sb)
@@ -119,24 +196,24 @@ function DestroySoftBody(_sb)
 
 #endregion
 
-
-
 function DrawSoftBody(_sb)
 {
-    with (_sb) {
-        // Fill using a triangle fan from the first point
-        draw_primitive_begin(pr_trianglefan);
-        draw_vertex(p_tl.x, p_tl.y);
-        draw_vertex(p_tr.x, p_tr.y);
-        draw_vertex(p_br.x, p_br.y);
-        draw_vertex(p_bl.x, p_bl.y);
-        draw_primitive_end();
-
-        // Outline the sticks (skip invisible braces)
-        for (var i = 0; i < ds_list_size(sticks); i++) {
+    with (_sb)
+    {
+        // Draw ONLY the sticks
+        for (var i = 0; i < ds_list_size(sticks); i++)
+        {
             var _s = sticks[| i];
-            if (!_s.visible) continue;
-            draw_line(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
+
+            if (!_s.visible)
+                continue;
+
+            draw_line(
+                _s.point1.x,
+                _s.point1.y,
+                _s.point2.x,
+                _s.point2.y
+            );
         }
     }
 }
