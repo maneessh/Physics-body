@@ -171,14 +171,6 @@ function IntergrateSoftBody(_sb, _dt)
         
         
         
-// Orientation from two anchor points (pick two that mean something for your shape)
-var _p1 = points[| 0];
-var _p2 = points[| 1];
-x = _p1.x;
-y = _p1.y;
-image_angle = point_direction(_p1.x, _p1.y, _p2.x, _p2.y);
-        
-
     }
     
     
