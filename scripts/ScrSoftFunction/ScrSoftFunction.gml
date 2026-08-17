@@ -209,3 +209,23 @@ function DrawSoftBody(_sb)
         }
     }
 }
+
+function DrawSoftBodys()
+{
+    
+        // Draw ONLY the sticks
+        for (var i = 0; i < ds_list_size(sticks); i++)
+        {
+            var _s = sticks[| i];
+
+            
+
+            draw_line(
+                _s.point1.x,
+                _s.point1.y,
+                _s.point2.x,
+                _s.point2.y
+            );
+        }
+    
+}
