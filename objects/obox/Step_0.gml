@@ -5,7 +5,7 @@ if (keyboard_check(vk_right))
         var p = points[| i];
 
         p.x += 2;
-        p.oldx += 2;
+        
     }
 }
 
@@ -16,7 +16,7 @@ if (keyboard_check(vk_left))
         var p = points[| i];
 
         p.x -= 2;
-        p.oldx -= 2;
+        
     }
 }
  

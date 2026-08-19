@@ -111,13 +111,36 @@ function IntergrateSoftBody(_sb, _dt)
         for (var i = 0; i < ds_list_size(points); i++) {
             var _p = points[| i];
             //Calculate Velocity
-            var _vx = (_p.x - _p.oldx) * frictions;
-            var _vy = (_p.y - _p.oldy) * frictions;
+            var _vx = (_p.x - _p.oldx) ;
+            var _vy = (_p.y - _p.oldy) ;
             //Old pos
             _p.oldx = _p.x;
             _p.oldy = _p.y;
             _p.x += _vx;
-            _p.y += _vy + (grav.y * _dt);
+            _p.y += _vy ;
+            
+            
+             if (_p.x > room_width)
+    {
+        _p.x = room_width;
+        _p.oldx = _p.x + _vx;
+    }
+    else if (_p.x < 0)
+    {
+        _p.x = 0;
+        _p.oldx = _p.x + _vx;   // fixed: was _p.y in your JS
+    }
+
+    if (_p.y > room_height)
+    {
+        _p.y = room_height;
+        _p.oldy = _p.y + _vy;
+    }
+    else if (_p.y < 0)
+    {
+        _p.y = 0;
+        _p.oldy = _p.y + _vy;
+    }
         }
 
         repeat (iterations) {
@@ -141,7 +164,7 @@ function IntergrateSoftBody(_sb, _dt)
         
 
         // FLOOR COLLISION — now inside with(_sb), before centroid
-        var _floor_y = room_height - 32;
+        var _floor_y = room_height +  32;
         for (var i = 0; i < ds_list_size(points); i++) {
             var _p = points[| i];
             if (_p.y >= _floor_y) {

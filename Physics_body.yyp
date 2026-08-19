@@ -26,6 +26,7 @@
   "name":"Physics_body",
   "resources":[
     {"id":{"name":"oB","path":"objects/oB/oB.yy",},},
+    {"id":{"name":"oB2","path":"objects/oB2/oB2.yy",},},
     {"id":{"name":"oball","path":"objects/oball/oball.yy",},},
     {"id":{"name":"obox","path":"objects/obox/obox.yy",},},
     {"id":{"name":"oFloor","path":"objects/oFloor/oFloor.yy",},},

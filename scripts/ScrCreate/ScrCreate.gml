@@ -21,4 +21,4 @@ function create_verlet_stick(_point1, _point2, _sticks_list) {
     ds_list_add(_sticks_list, _stick);
     
     return _stick;
-}
+}  
