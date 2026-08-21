@@ -80,6 +80,8 @@ function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 
         
         
         
+        
+        
     }
 }
 
@@ -172,7 +174,8 @@ function IntergrateSoftBody(_sb, _dt)
                 _p.oldy = _p.y + _vy;
             }
         }
-
+        
+        UpdateSoftBodyTransform(self.id);
         // Calculate centroid — now sees corrected positions
         x = 0;
         y = 0;
@@ -191,7 +194,7 @@ function IntergrateSoftBody(_sb, _dt)
         //y = _p1.y;
         //image_angle = point_direction(_p1.x, _p1.y,_p2.x,_p2.y);
         
-        UpdateSoftBodyTransform(self.id);
+        
         
         
         
