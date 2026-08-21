@@ -117,30 +117,29 @@ function IntergrateSoftBody(_sb, _dt)
             _p.oldx = _p.x;
             _p.oldy = _p.y;
             _p.x += _vx;
-            _p.y += _vy ;
+            _p.y += _vy + ( grav.y * _dt);
             
-            
-             if (_p.x > room_width)
-    {
-        _p.x = room_width;
-        _p.oldx = _p.x + _vx;
-    }
-    else if (_p.x < 0)
-    {
-        _p.x = 0;
-        _p.oldx = _p.x + _vx;   // fixed: was _p.y in your JS
-    }
+            if (_p.x > room_width)
+            {
+                _p.x = room_width;
+                _p.oldx = _p.x + _vx;
+            }
+            else if (_p.x < 0)
+            {
+                _p.x = 0;
+                _p.oldx = _p.x + _vx;   // fixed: was _p.y in your JS
+            }
 
-    if (_p.y > room_height)
-    {
-        _p.y = room_height;
-        _p.oldy = _p.y + _vy;
-    }
-    else if (_p.y < 0)
-    {
-        _p.y = 0;
-        _p.oldy = _p.y + _vy;
-    }
+            if (_p.y > room_height)
+            {
+                _p.y = room_height;
+                _p.oldy = _p.y + _vy;
+            }
+            else if (_p.y < 0)
+            {
+                _p.y = 0;
+                _p.oldy = _p.y + _vy;
+            }
         }
 
         repeat (iterations) {
@@ -204,6 +203,26 @@ function DestroySoftBody(_sb)
     with (_sb) {
         ds_list_destroy(points);
         ds_list_destroy(sticks);
+    }
+}
+
+function DrawSoftBodyImage(_sb, _sprite)
+{
+    with (_sb)
+    {
+        var _p0 = points[| 0]; // top-left
+        var _p1 = points[| 1]; // top-right
+        var _p3 = points[| 3]; // bottom-left
+
+        var _w = point_distance(_p0.x, _p0.y, _p1.x, _p1.y);
+        var _h = point_distance(_p0.x, _p0.y, _p3.x, _p3.y);
+
+        var _angle = point_direction(_p0.x, _p0.y, _p1.x, _p1.y);
+
+        var _xscale = _w / sprite_get_width(_sprite);
+        var _yscale = _h / sprite_get_height(_sprite);
+
+        draw_sprite_ext(_sprite, 0, _p0.x, _p0.y, _xscale, _yscale, _angle, c_white, 1);
     }
 }
 

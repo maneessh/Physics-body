@@ -20,12 +20,14 @@ point_count = 12;
 
 
 
-grav = new Vector2(0 , 0);
+grav = new Vector2(0 , 0.2);
 
+
+//1.
 InitSoftBox(self.id , 200 , 200 );
 //InitSoftBall(self.id , x , y , radius);
-
-
+//2.
+DrawSoftBodyImage(self.id,sprite_index);
 
 var _launch_vx = 8;
 var _launch_vy = 0;
