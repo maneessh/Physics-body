@@ -191,6 +191,8 @@ function IntergrateSoftBody(_sb, _dt)
         //y = _p1.y;
         //image_angle = point_direction(_p1.x, _p1.y,_p2.x,_p2.y);
         
+        UpdateSoftBodyTransform(self.id);
+        
         
         
     }
@@ -206,7 +208,7 @@ function DestroySoftBody(_sb)
     }
 }
 
-function DrawSoftBodyImage(_sb, _sprite)
+function UpdateSoftBodyTransform(_sb)
 {
     with (_sb)
     {
@@ -217,12 +219,12 @@ function DrawSoftBodyImage(_sb, _sprite)
         var _w = point_distance(_p0.x, _p0.y, _p1.x, _p1.y);
         var _h = point_distance(_p0.x, _p0.y, _p3.x, _p3.y);
 
-        var _angle = point_direction(_p0.x, _p0.y, _p1.x, _p1.y);
-
-        var _xscale = _w / sprite_get_width(_sprite);
-        var _yscale = _h / sprite_get_height(_sprite);
-
-        draw_sprite_ext(_sprite, 0, _p0.x, _p0.y, _xscale, _yscale, _angle, c_white, 1);
+        x = _p0.x;
+        y = _p0.y;
+        
+        image_angle    = point_direction(_p0.x, _p0.y, _p1.x, _p1.y);
+        image_xscale   = _w / sprite_width;
+        image_yscale   = _h / sprite_height;
     }
 }
 
@@ -269,5 +271,4 @@ function DrawSoftBodys()
                 _s.point2.y
             );
         }
-    
 }

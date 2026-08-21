@@ -1,3 +1,2 @@
-
-draw_self();
 DrawSoftBody(self.id);
+draw_self();
