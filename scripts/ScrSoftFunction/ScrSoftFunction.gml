@@ -231,6 +231,21 @@ function UpdateSoftBodyTransform(_sb)
     }
 }
 
+function UpdateSoftBallTransform(_sb)
+{
+    with (_sb)
+    {
+        var _p0 = points[| 0];
+        var _p6 = points[| 6];
+
+        image_angle = point_direction(
+            _p6.x,
+            _p6.y,
+            _p0.x,
+            _p0.y
+        );
+    }
+}
 
 
 #endregion

@@ -208,9 +208,10 @@ function Integrate(_rb,_dt)
         var _vx = velocity.x;
         var _vy = velocity.y;
         
+        x += _vx;
+        y += _vy;
         
-    x += _vx;
-    y += _vy;
+        
         
         
     
