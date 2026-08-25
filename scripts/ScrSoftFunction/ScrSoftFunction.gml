@@ -143,7 +143,7 @@ function IntergrateSoftBody(_sb, _dt)
                 _p.y = room_height;
                 _p.oldy = _p.y + _vy;
                 
-                // Friction: dampen horizontal velocity while grounded
+                // Friction: dampen horizontal velocity while grounded // Slowing the sliding problem
                 _p.oldx = _p.x - (_vx * frictions);
             }
             else if (_p.y < 0)
