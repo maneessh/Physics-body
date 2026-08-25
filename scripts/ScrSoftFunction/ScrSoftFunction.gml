@@ -87,9 +87,12 @@ function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 
 
 
 
-function AddSoftPoint(_sb, _x , _y)
+function AddSoftPoint(_sb, _x , _y, _mass = 5)
 {
-    var _p = { x : _x, y : _y , oldx : _x , oldy : _y };
+    var _p = { x : _x, y : _y , oldx : _x , oldy : _y, 
+            mass : _mass, 
+            invMass : (_mass <= 0) ? 0 : (1 / _mass) //invMass = 0 means " pinned  / infinite mass "
+    };
     ds_list_add(_sb.points, _p);
     return _p;
 }
@@ -152,14 +155,26 @@ function IntergrateSoftBody(_sb, _dt)
                 var _dy = _s.point2.y - _s.point1.y;
                 //The current distance 
                 var _dist = point_distance(_s.point1.x, _s.point1.y, _s.point2.x, _s.point2.y);
+                
+                if (_dist = 0 ) continue ; //Avoid div by Zero
+                    
+                
                 //How much correction is required ? Why /2 ? moving both points.
                 var _diff = (_s.length - _dist) / _dist / 2;
                 
+                var _totalInvMass = _s.point1.invMass + _s.point2.invMass;
+                if (_totalInvMass == 0) {
+                	continue;
+                }
                 
-                _s.point1.x -= _dx * _diff;
-                _s.point1.y -= _dy * _diff;
-                _s.point2.x += _dx * _diff;
-                _s.point2.y += _dy * _diff;
+                var _w1 = _s.point1.invMass / _totalInvMass;
+                var _w2 = _s.point2.invMass / _totalInvMass;
+                
+                _s.point1.x -= _dx * _diff * _w1;
+                _s.point1.y -= _dy * _diff * _w1;
+                
+                _s.point2.x += _dx * _diff * _w2;
+                _s.point2.y += _dy * _diff * _w2;
             }
         }
         
