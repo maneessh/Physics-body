@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Script12",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Script12",
+  "parent":{
+    "name":"Physics_body",
+    "path":"Physics_body.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

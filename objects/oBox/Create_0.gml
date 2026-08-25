@@ -3,10 +3,10 @@
 event_inherited();
 
 //1.
-InitSoftBox(self.id , 200 , 200 );
+InitSoftBox(self.id , 200 , 200 , 5, 15);
 //InitSoftBall(self.id , x , y , radius);
 
-
+grav.y = 3;
 
 var _launch_vx = 4;
 var _launch_vy = 8;

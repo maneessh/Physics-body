@@ -1,13 +1,14 @@
 // Inherit the parent event
 event_inherited();
 
+//1.
+InitSoftBox(self.id , 100 , 200 , 5, 0.5);
+//InitSoftBall(self.id , x , y , radius);
 
-InitSoftBall(self.id , x , y , radius, 1);
 
 
-
-var _launch_vx = 6;
-var _launch_vy = 6;
+var _launch_vx = 4;
+var _launch_vy = 8;
 for (var i = 0; i < ds_list_size(points); i++) {
     var _p = points[| i];
     _p.oldx = _p.x - _launch_vx;

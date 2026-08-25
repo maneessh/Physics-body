@@ -4,7 +4,7 @@
 
 #region Soft Body
 
-function InitSoftBox(_sb, _x , _y , _iterations = 4)
+function InitSoftBox(_sb, _x , _y ,_iterations = 4, _mass)
 {
     with (_sb ) {
         
@@ -14,10 +14,10 @@ function InitSoftBox(_sb, _x , _y , _iterations = 4)
         sticks = ds_list_create();
         iterations = _iterations;
         
-        p_tl = AddSoftPoint(self.id, _x , _y );
-        p_tr = AddSoftPoint(self.id, _x + width  , _y );
-        p_br = AddSoftPoint(self.id, _x + width , _y + height );
-        p_bl = AddSoftPoint(self.id, _x , _y + height );
+        p_tl = AddSoftPoint(self.id, _x , _y , _mass);
+        p_tr = AddSoftPoint(self.id, _x + width  , _y , _mass);
+        p_br = AddSoftPoint(self.id, _x + width , _y + height , _mass);
+        p_bl = AddSoftPoint(self.id, _x , _y + height , _mass);
         
         AddSoftStick(self.id, p_tl, p_tr);
         AddSoftStick(self.id, p_tr, p_br);
@@ -29,7 +29,7 @@ function InitSoftBox(_sb, _x , _y , _iterations = 4)
     }
 }
 
-function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 6)
+function InitSoftBall(_sb, _x , _y , _radius, _mass = 1, _point_count = 12 , _iterations = 6 )
 {
     with (_sb) {
         
@@ -49,7 +49,7 @@ function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 
             var _px = _x + cos(_angle) * _radius;
             var _py = _y + sin(_angle) * _radius;
             
-            AddSoftPoint(self.id , _px , _py);
+            AddSoftPoint(self.id , _px , _py, _mass);
         	
         }
         
@@ -87,7 +87,7 @@ function InitSoftBall(_sb, _x , _y , _radius, _point_count = 12 , _iterations = 
 
 
 
-function AddSoftPoint(_sb, _x , _y, _mass = 5)
+function AddSoftPoint(_sb, _x , _y, _mass)
 {
     var _p = { x : _x, y : _y , oldx : _x , oldy : _y, 
             mass : _mass, 
@@ -160,7 +160,7 @@ function IntergrateSoftBody(_sb, _dt)
                     
                 
                 //How much correction is required ? Why /2 ? moving both points.
-                var _diff = (_s.length - _dist) / _dist / 2;
+                var _diff = (_s.length - _dist) / _dist;
                 
                 var _totalInvMass = _s.point1.invMass + _s.point2.invMass;
                 if (_totalInvMass == 0) {
