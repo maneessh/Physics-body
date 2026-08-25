@@ -2,9 +2,9 @@
 event_inherited();
 
 //1.
-InitSoftBox(self.id , 100 , 200 , 5, 0.5);
+InitSoftBox(self.id , 200 , 200 , 8 , 1);
 //InitSoftBall(self.id , x , y , radius);
-
+grav.y = 0.3;
 
 
 var _launch_vx = 4;
