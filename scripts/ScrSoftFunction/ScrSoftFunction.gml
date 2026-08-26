@@ -4,7 +4,7 @@
 
 #region Soft Body
 
-function InitSoftBox(_sb, _x , _y ,_mass = 1, _stiffness = 1, _iterations = 4)
+function InitSoftBox(_sb, _x , _y ,_mass = 1, _stiffness = 2, _iterations = 4)
 {
     with (_sb ) {
         

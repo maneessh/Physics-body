@@ -20,6 +20,6 @@ point_count = 12;
 
 
 
-grav = new Vector2(0 , 0.9);
+grav = new Vector2(0 , 3.2);
 
 

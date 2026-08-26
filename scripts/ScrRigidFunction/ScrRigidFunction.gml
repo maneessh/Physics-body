@@ -203,13 +203,17 @@ function Integrate(_rb,_dt)
         velocity.addScaledVector(acceleration, _dt); 
         
         //Apply velocity damping
-         velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
+        velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
+        //velocity.scale(1 / (1 + _dt * damping));
+
         
         var _vx = velocity.x;
         var _vy = velocity.y;
         
         x += _vx;
         y += _vy;
+        
+        
         
         
         

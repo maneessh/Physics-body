@@ -82,6 +82,9 @@ prev_force = new Vector2();     //Storing previous force.
 
 #region Angular Movement
 
+angle = 0;
+
+
 angularVelocity = 0;           // radians/sec, signed (+ = clockwise in GM's coord system)
 torque = 0;                    // accumulated torque this frame
 inverseInertia = 1;            // set via SetInertia(), like inverseMass
