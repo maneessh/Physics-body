@@ -65,6 +65,25 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///	@desc	Handles impluses for the collision.
 	static resolveVelocity = function(_dt)
 	{
+        
+        
+        
+        var _r1 = new Vector2(
+    point.x - rb1.x,
+    point.y - rb1.y
+);
+
+var _r2;
+
+if (instance_exists(rb2))
+{
+    _r2 = new Vector2(
+        point.x - rb2.x,
+        point.y - rb2.y
+    );
+}
+        
+        
 		// Get separating velocity
 		var _sepVel = calculateSeparatingVelocity();
 		
@@ -111,6 +130,22 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 		// Apply impulse to first body
 		rb1.velocity.set(rb1.velocity.x + _impulsePerIMass.x * rb1.inverseMass,
 			rb1.velocity.y + _impulsePerIMass.y * rb1.inverseMass);
+        
+        
+        // =====================================================
+// Apply angular impulse to first body
+// torque impulse = r × J
+// =====================================================
+
+var _angularImpulse1 =
+    (_r1.x * _impulsePerIMass.y)
+  - (_r1.y * _impulsePerIMass.x);
+
+rb1.angularVelocity +=
+    _angularImpulse1 * rb1.inverseInertia;
+
+        
+        
 		
 		// Apply impulse to second body
 		if (_rb2Exists)
