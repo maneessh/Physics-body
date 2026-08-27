@@ -43,16 +43,22 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///	@desc	Returns the velocity magnitude required to separate the contact. Positive values mean
 	///			the bodies are already separating, negative means otherwise.
 	static calculateSeparatingVelocity = function()
-	{
-		// Get first body's velocity
-		var _relativeVel = new Vector2(rb1.velocity.x, rb1.velocity.y);
-		
-		// Subtract second body's velocity if it exists
-		if (instance_exists(rb2)) _relativeVel.add(-rb2.velocity.x, -rb2.velocity.y);
-		
-		// Return the dot product between relative velocity and normal
-		return _relativeVel.dotProductVector(normal);
-	}
+{
+    var _r1 = new Vector2(point.x - rb1.x, point.y - rb1.y);
+    var _v1 = new Vector2(rb1.velocity.x - rb1.angularVelocity * _r1.y,
+                           rb1.velocity.y + rb1.angularVelocity * _r1.x);
+    
+    var _relativeVel = _v1;
+    if (instance_exists(rb2)) {
+        var _r2 = new Vector2(point.x - rb2.x, point.y - rb2.y);
+        var _v2 = new Vector2(rb2.velocity.x - rb2.angularVelocity * _r2.y,
+                               rb2.velocity.y + rb2.angularVelocity * _r2.x);
+        _relativeVel.add(-_v2.x, -_v2.y);
+    }
+    return _relativeVel.dotProductVector(normal);
+}
+    
+    
 	
 	///	@func	resolveVelocity(dt);
 	///	@param	{real}	dt	The change in time of the simulation.
@@ -186,6 +192,9 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	{
 		return string("[{0},{1}]=>[{2},{3}]", rb1, rb2, normal, penetration);
 	}
+    
+    
+    
 }
 
 ///	@func	ContactResolver(iterations);

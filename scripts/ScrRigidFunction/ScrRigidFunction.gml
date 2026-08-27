@@ -213,10 +213,7 @@ function Integrate(_rb,_dt)
         x += _vx;
         y += _vy;
         
-        
-        
-        
-        
+     
         
     
     }
@@ -250,6 +247,7 @@ function InitNextphysicsFrame(_pw) //Inits the world before a simulation force
     with (_pw.rbObject) {
     	ClearForces(self.id);
     }
+    
     
 }
 
