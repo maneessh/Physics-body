@@ -35,7 +35,7 @@ function Matrix22(_angle = -1) constructor {
         }
     }
     
-    
+      
    //Set data
     if (_angle != -1) setRotation(_angle);
 }

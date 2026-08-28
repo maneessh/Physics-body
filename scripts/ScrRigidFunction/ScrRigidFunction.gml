@@ -213,14 +213,7 @@ function Integrate(_rb,_dt)
         x += _vx;
         y += _vy;
         
-        angularAcceleration = torque * inverseInertia;
-
-angularVelocity += angularAcceleration * _dt;
-
-angle += angularVelocity * _dt;
-     
-        
-    
+ 
     }
     
     

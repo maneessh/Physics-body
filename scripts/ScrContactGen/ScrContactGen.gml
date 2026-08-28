@@ -43,20 +43,16 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///	@desc	Returns the velocity magnitude required to separate the contact. Positive values mean
 	///			the bodies are already separating, negative means otherwise.
 	static calculateSeparatingVelocity = function()
-{
-    var _r1 = new Vector2(point.x - rb1.x, point.y - rb1.y);
-    var _v1 = new Vector2(rb1.velocity.x - rb1.angularVelocity * _r1.y,
-                           rb1.velocity.y + rb1.angularVelocity * _r1.x);
-    
-    var _relativeVel = _v1;
-    if (instance_exists(rb2)) {
-        var _r2 = new Vector2(point.x - rb2.x, point.y - rb2.y);
-        var _v2 = new Vector2(rb2.velocity.x - rb2.angularVelocity * _r2.y,
-                               rb2.velocity.y + rb2.angularVelocity * _r2.x);
-        _relativeVel.add(-_v2.x, -_v2.y);
-    }
-    return _relativeVel.dotProductVector(normal);
-}
+	{
+		// Get first body's velocity
+		var _relativeVel = new Vector2(rb1.velocity.x, rb1.velocity.y);
+		
+		// Subtract second body's velocity if it exists
+		if (instance_exists(rb2)) _relativeVel.add(-rb2.velocity.x, -rb2.velocity.y);
+		
+		// Return the dot product between relative velocity and normal
+		return _relativeVel.dotProductVector(normal);
+	}
     
     
 	
@@ -65,25 +61,6 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///	@desc	Handles impluses for the collision.
 	static resolveVelocity = function(_dt)
 	{
-        
-        
-        
-        var _r1 = new Vector2(
-    point.x - rb1.x,
-    point.y - rb1.y
-);
-
-var _r2;
-
-if (instance_exists(rb2))
-{
-    _r2 = new Vector2(
-        point.x - rb2.x,
-        point.y - rb2.y
-    );
-}
-        
-        
 		// Get separating velocity
 		var _sepVel = calculateSeparatingVelocity();
 		
@@ -130,22 +107,6 @@ if (instance_exists(rb2))
 		// Apply impulse to first body
 		rb1.velocity.set(rb1.velocity.x + _impulsePerIMass.x * rb1.inverseMass,
 			rb1.velocity.y + _impulsePerIMass.y * rb1.inverseMass);
-        
-        
-        // =====================================================
-// Apply angular impulse to first body
-// torque impulse = r × J
-// =====================================================
-
-var _angularImpulse1 =
-    (_r1.x * _impulsePerIMass.y)
-  - (_r1.y * _impulsePerIMass.x);
-
-rb1.angularVelocity +=
-    _angularImpulse1 * rb1.inverseInertia;
-
-        
-        
 		
 		// Apply impulse to second body
 		if (_rb2Exists)
