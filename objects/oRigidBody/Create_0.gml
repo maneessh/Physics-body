@@ -10,7 +10,7 @@ inverseMass = 1;
 Mass = 1;
 
 //Shape ? Default is RECT
-shape = Shape.RECT;
+//shape = Shape.RECT;
 
 
 //How bouncy the object is during collisions (0 = no bounce , 1 = max bounce)
@@ -19,7 +19,7 @@ bounciness = 1;
 
 // A rotation matrix representing the body's orientattion in computer coordinates ( +y for down, +x for right)
 // When changing the angle of the rigid body, using nbpSetAngle(rb,Angle) to automatically update the matrix.
-orientation = new Matrix22( -image_angle);
+//orientation = new Matrix22( -image_angle);
 
 
 //Rigid bodies can be put to sleep to avoid integration/Collision functions.
@@ -77,6 +77,7 @@ velocity = new Vector2();       //Updates the position every frame, velocity = d
 acceleration = new Vector2();   //Updates the velocity every frame, acceleration = velocity / time
 force = new Vector2();          //Used to calculate accleration every frame, forece = maxx x accleration
 prev_force = new Vector2();     //Storing previous force.
+position = new Vector2();
 
 #endregion
 
@@ -90,6 +91,7 @@ height = sprite_height;
 #region Angular Movement
 
 rotation = 0;
+
 angularVelocity = 0;
 //Moment of inertia of a solid rectangle rotating around its center.(How difficult it is to rotate the object?)
 inertia = (1 / 12 ) * Mass * (width * width + height * height);
@@ -103,6 +105,8 @@ torque = 0;//Its causes rotation -> force away from the center Can create torque
 restitutionThreshold = 40;
 frictions = 0.4; // Resists sliding 
 restitution = 0.3// 0 = no bounce , 1 = elastic
+
+
 
 #endregion
 #region Physics Generator

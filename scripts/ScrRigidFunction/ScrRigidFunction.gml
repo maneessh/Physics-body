@@ -53,12 +53,12 @@ function GetRadius(_rb){
 }
 
 
-function SetAngle(_rb,_angle){  //How much is the object rotated?
-    _rb.image_angle = _angle;
-    if (_rb.shape == Shape.RECT_ROTATED) {
-    	_rb.orientation.setRotation(_rb.image_angle);
-    }
-}
+//function SetAngle(_rb,_angle){  //How much is the object rotated?
+    //_rb.image_angle = _angle;
+    //if (_rb.shape == Shape.RECT_ROTATED) {
+    	//_rb.orientation.setRotation(_rb.image_angle);
+    //}
+//}
 
 
 function SetShape(_rb,_shape){
@@ -216,6 +216,7 @@ function Integrate(_rb,_dt)
         x += _vx;
         y += _vy;
         
+        position.set(x,y);
         ///---Angular---
         var _angAccel = torque * inverseInertia ;
         angularVelocity += _angAccel * _dt;
@@ -223,7 +224,7 @@ function Integrate(_rb,_dt)
         
         rotation += angularVelocity * _dt;
         
-        SetAngle(self.id, radtodeg(-rotation));
+        //SetAngle(self.id, radtodeg(-rotation));
         
  
     }
