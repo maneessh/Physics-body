@@ -7,6 +7,7 @@
 //The higher the inverse mass, the 'lighter' the body
 inverseMass = 1;
 
+Mass = 1;
 
 //Shape ? Default is RECT
 shape = Shape.RECT;
@@ -79,19 +80,31 @@ prev_force = new Vector2();     //Storing previous force.
 
 #endregion
 
+#region Size
 
-#region Angular Movement
-
-angle = 0;
-
-
-angularVelocity = 0;           // radians/sec, signed (+ = clockwise in GM's coord system)
-torque = 0;                    // accumulated torque this frame
-inverseInertia = 1;            // set via SetInertia(), like inverseMass
-angularDamping = 0.995;        // same idea as linear damping
+width = sprite_width;
+height = sprite_height;
 
 #endregion
 
+#region Angular Movement
+
+rotation = 0;
+angularVelocity = 0;
+//Moment of inertia of a solid rectangle rotating around its center.(How difficult it is to rotate the object?)
+inertia = (1 / 12 ) * Mass * (width * width + height * height);
+inverseInertia = 1 / inertia;
+torque = 0;//Its causes rotation -> force away from the center Can create torque.
+#endregion
+
+
+#region Resistance
+//Collision code(if the collision velocity is below .. pixels/sec. Don't make the object bounce
+restitutionThreshold = 40;
+frictions = 0.4; // Resists sliding 
+restitution = 0.3// 0 = no bounce , 1 = elastic
+
+#endregion
 #region Physics Generator
 
 /*

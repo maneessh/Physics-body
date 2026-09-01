@@ -9,7 +9,7 @@ moveStrength = 5;
 //canSleep = false;
 
 //Set Shape
-SetShape(self.id,Shape.RECT_ROTATED);
+SetShape(self.id,Shape.RECT);
 
 //Friction
 damping = 0.1;

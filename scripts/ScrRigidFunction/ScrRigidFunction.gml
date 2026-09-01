@@ -190,8 +190,11 @@ function Integrate(_rb,_dt)
         
     with (_rb) {
         
+        
     	//Store previous force
         prev_force.setVector(force);
+        
+        ///-----Linear-----
         
         //Calculate acceleration
         acceleration.setScaledVector(force, inverseMass); //a = F x M
@@ -204,7 +207,7 @@ function Integrate(_rb,_dt)
         
         //Apply velocity damping
         velocity.scale(power(damping,_dt)); //Slows the objects slightly every frame
-        //velocity.scale(1 / (1 + _dt * damping));
+        
 
         
         var _vx = velocity.x;
@@ -212,6 +215,15 @@ function Integrate(_rb,_dt)
         
         x += _vx;
         y += _vy;
+        
+        ///---Angular---
+        var _angAccel = torque * inverseInertia ;
+        angularVelocity += _angAccel * _dt;
+        angularVelocity *= power(damping,_dt);
+        
+        rotation += angularVelocity * _dt;
+        
+        SetAngle(self.id, radtodeg(-rotation));
         
  
     }
