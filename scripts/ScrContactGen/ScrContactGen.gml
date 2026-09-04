@@ -44,23 +44,12 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///			the bodies are already separating, negative means otherwise.
 	static calculateSeparatingVelocity = function()
 	{
-		var _r1x = point.x - rb1.position.x;
-    var _r1y = point.y - rb1.position.y;
+	// Get first body's velocity
+		var _relativeVel = new Vector2(rb1.velocity.x, rb1.velocity.y);
+		
+		// Subtract second body's velocity if it exists
+		if (instance_exists(rb2)) _relativeVel.add(-rb2.velocity.x, -rb2.velocity.y);
 
-    var _vel1 = new Vector2(
-        rb1.velocity.x - rb1.angularVelocity * _r1y,
-        rb1.velocity.y + rb1.angularVelocity * _r1x
-    );
-
-    var _relativeVel = _vel1.getCopy();
-
-    if (instance_exists(rb2)) {
-        var _r2x = point.x - rb2.position.x;
-        var _r2y = point.y - rb2.position.y;
-        var _vel2x = rb2.velocity.x - rb2.angularVelocity * _r2y;
-        var _vel2y = rb2.velocity.y + rb2.angularVelocity * _r2x;
-        _relativeVel.add(-_vel2x, -_vel2y);
-    }
 		
 		// Return the dot product between relative velocity and normal
 		return _relativeVel.dotProductVector(normal);
@@ -104,25 +93,13 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 		var _deltaVel = _newSepVel - _sepVel;
         
         
-		    // --- NEW: angular terms in the effective mass ---
-    var _r1x = point.x - rb1.position.x;
-    var _r1y = point.y - rb1.position.y;
-    var _r1CrossN = _r1x * normal.y - _r1y * normal.x;
+      
+		// Apply change in velocity propotional to inverse mass
+		var _totalIMass = rb1.inverseMass;
         
-        
+		if (_rb2Exists) _totalIMass += rb2.inverseMass;
 
-    var _totalIMass = rb1.inverseMass + (_r1CrossN * _r1CrossN) * rb1.inverseInertia;
-        
-        // Declare these OUTSIDE the if, so both blocks below can see them
-var _r2x = 0, _r2y = 0, _r2CrossN = 0;
-
-
-    if (_rb2Exists) {
-        _r2x = point.x - rb2.position.x;
-        _r2y = point.y - rb2.position.y;
-        _r2CrossN = _r2x * normal.y - _r2y * normal.x;
-        _totalIMass += rb2.inverseMass + (_r2CrossN * _r2CrossN) * rb2.inverseInertia;
-    }
+    
 
 		// Return if infinite mass
 		if (_totalIMass <= 0) return;
@@ -137,17 +114,13 @@ var _r2x = 0, _r2y = 0, _r2CrossN = 0;
 		rb1.velocity.set(rb1.velocity.x + _impulsePerIMass.x * rb1.inverseMass,
 			rb1.velocity.y + _impulsePerIMass.y * rb1.inverseMass);
         
-        
-        // --- NEW: apply angular impulse ---
-        rb1.angularVelocity += _r1CrossN * _impulse * rb1.inverseInertia;
-
 		
 		// Apply impulse to second body
 		if (_rb2Exists)
 		{
 			rb2.velocity.set(rb2.velocity.x - _impulsePerIMass.x * rb2.inverseMass,
 				rb2.velocity.y - _impulsePerIMass.y * rb2.inverseMass);
-            rb2.angularVelocity -= _r2CrossN * _impulse * rb2.inverseInertia;
+            
 		}
 	}
 	

@@ -11,10 +11,10 @@ function GetMass(_rb){ //Returns the mass (inverseMass) of the body
 
 
 function SetMass(_rb, _mass){
-    if (_mass == 0) throw ("Set mass error. Mass can't be zero") {
-    	_rb.inverseMass = 1 / _mass;
+    if (_mass == 0) throw ("Set mass error. Mass can't be zero");
+        _rb.inverseMass = 1 / _mass;
         
-    }
+    
 }
 
 
@@ -53,12 +53,12 @@ function GetRadius(_rb){
 }
 
 
-//function SetAngle(_rb,_angle){  //How much is the object rotated?
-    //_rb.image_angle = _angle;
-    //if (_rb.shape == Shape.RECT_ROTATED) {
-    	//_rb.orientation.setRotation(_rb.image_angle);
-    //}
-//}
+function SetAngle(_rb,_angle){  //How much is the object rotated?
+    _rb.image_angle = _angle;
+    if (_rb.shape == Shape.RECT_ROTATED) {
+    	_rb.orientation.setRotation(_rb.image_angle);
+    }
+}
 
 
 function SetShape(_rb,_shape){
@@ -210,21 +210,38 @@ function Integrate(_rb,_dt)
         
 
         
-        var _vx = velocity.x;
-        var _vy = velocity.y;
+        //var _vx = velocity.x;
+        //var _vy = velocity.y;
+        //
+        //x += _vx;
+        //y += _vy;
         
-        x += _vx;
-        y += _vy;
-        
-        position.set(x,y);
-        ///---Angular---
-        var _angAccel = torque * inverseInertia ;
+        position.addScaledVector(velocity, _dt);
+
+        // --- Angular (NEW) ---
+        var _angAccel = torque * inverseInertia;
         angularVelocity += _angAccel * _dt;
-        angularVelocity *= power(damping,_dt);
-        
+        angularVelocity *= power(damping, _dt);
+
         rotation += angularVelocity * _dt;
+
+        // --- Sync built-ins ---
+        x = position.x;
+        y = position.y;
+        image_angle = radtodeg(-rotation);
+        if (shape == Shape.RECT_ROTATED) orientation.setRotation(-image_angle);
+
+        // --- Motion tracking for sleep (NEW) ---
+        var _currentMotion = velocity.dotProductVector(velocity) + angularVelocity * angularVelocity;
+        motion = Motion * motion + (1 - Motion) * _currentMotion;
+
+        //if (motion < Sleep) {
+            //SetAwake(self, false);
+        //} else if (motion > Sleep * 10) {
+            //motion = Sleep * 10;   // clamp so it doesn't grow unbounded
+        //}
+
         
-        //SetAngle(self.id, radtodeg(-rotation));
         
  
     }
@@ -237,8 +254,8 @@ function AddForceAtPoint(_rb, _fx, _fy, _px, _py){
     with (_rb) {
         force.add(_fx, _fy);
         
-        var _rx = _px - x;
-        var _ry = _py - y;
+        var _rx = _px - position.x;
+        var _ry = _py - position.y;
         torque += (_rx * _fy) - (_ry * _fx); // r × F
         
         if (!isAwake) SetAwake(id, true);
