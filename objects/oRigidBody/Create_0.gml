@@ -77,7 +77,7 @@ velocity = new Vector2();       //Updates the position every frame, velocity = d
 acceleration = new Vector2();   //Updates the velocity every frame, acceleration = velocity / time
 force = new Vector2();          //Used to calculate accleration every frame, forece = maxx x accleration
 prev_force = new Vector2();     //Storing previous force.
-position = new Vector2();
+
 
 #endregion
 
@@ -128,3 +128,8 @@ funcDrawShape = DrawRect;
 #endregion
 
 
+
+//Contact Generator
+cgInst = new InstContactGen();//For instances
+cgFloor = new FloorContactGen(); //For Floor
+cgRoom = new RoomContactGen(room_height - 16 , 1);//Foor Room

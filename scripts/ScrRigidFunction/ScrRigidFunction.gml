@@ -210,36 +210,13 @@ function Integrate(_rb,_dt)
         
 
         
-        //var _vx = velocity.x;
-        //var _vy = velocity.y;
-        //
-        //x += _vx;
-        //y += _vy;
+        var _vx = velocity.x;
+        var _vy = velocity.y;
         
-        position.addScaledVector(velocity, _dt);
-
-        // --- Angular (NEW) ---
-        var _angAccel = torque * inverseInertia;
-        angularVelocity += _angAccel * _dt;
-        angularVelocity *= power(damping, _dt);
-
-        rotation += angularVelocity * _dt;
-
-        // --- Sync built-ins ---
-        x = position.x;
-        y = position.y;
-        image_angle = radtodeg(-rotation);
-        if (shape == Shape.RECT_ROTATED) orientation.setRotation(-image_angle);
-
-        // --- Motion tracking for sleep (NEW) ---
-        var _currentMotion = velocity.dotProductVector(velocity) + angularVelocity * angularVelocity;
-        motion = Motion * motion + (1 - Motion) * _currentMotion;
-
-        //if (motion < Sleep) {
-            //SetAwake(self, false);
-        //} else if (motion > Sleep * 10) {
-            //motion = Sleep * 10;   // clamp so it doesn't grow unbounded
-        //}
+        x += _vx;
+        y += _vy;
+        
+        
 
         
         
