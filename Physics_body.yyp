@@ -41,6 +41,7 @@
     {"id":{"name":"ScrInstContactGen","path":"scripts/ScrInstContactGen/ScrInstContactGen.yy",},},
     {"id":{"name":"Script12","path":"scripts/Script12/Script12.yy",},},
     {"id":{"name":"ScrMatrix22","path":"scripts/ScrMatrix22/ScrMatrix22.yy",},},
+    {"id":{"name":"ScrPolygonContactGen","path":"scripts/ScrPolygonContactGen/ScrPolygonContactGen.yy",},},
     {"id":{"name":"ScrRigidFunction","path":"scripts/ScrRigidFunction/ScrRigidFunction.yy",},},
     {"id":{"name":"ScrRoomContactGen","path":"scripts/ScrRoomContactGen/ScrRoomContactGen.yy",},},
     {"id":{"name":"ScrRoomContactGens","path":"scripts/ScrRoomContactGens/ScrRoomContactGens.yy",},},
