@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ScrPolygonContactGen",
   "parent":{
-    "name":"Script",
-    "path":"folders/Script.yy",
+    "name":"Contact",
+    "path":"folders/Script/Contact.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
