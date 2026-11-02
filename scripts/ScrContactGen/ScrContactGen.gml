@@ -44,15 +44,37 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 	///			the bodies are already separating, negative means otherwise.
 	static calculateSeparatingVelocity = function()
 	{
-	// Get first body's velocity
-		var _relativeVel = new Vector2(rb1.velocity.x, rb1.velocity.y);
-		
-		// Subtract second body's velocity if it exists
-		if (instance_exists(rb2)) _relativeVel.add(-rb2.velocity.x, -rb2.velocity.y);
-
-		
-		// Return the dot product between relative velocity and normal
-		return _relativeVel.dotProductVector(normal);
+	//// Get first body's velocity
+		//var _relativeVel = new Vector2(rb1.velocity.x, rb1.velocity.y);
+		//
+		//// Subtract second body's velocity if it exists
+		//if (instance_exists(rb2)) _relativeVel.add(-rb2.velocity.x, -rb2.velocity.y);
+//
+		//
+		//// Return the dot product between relative velocity and normal
+		//return _relativeVel.dotProductVector(normal);
+        
+        
+        // r = contact point - center of mass
+        var _r1x = point.x - rb1.position.x;
+        var _r1y = point.y - rb1.position.y;
+        ///----Linear----////
+        var _relativeVel = new Vector2(
+            rb1.velocity.x - rb1.angularVelocity * _r1y,
+            rb1.velocity.y + rb1.angularVelocity * _r1x
+        );
+        
+        if (instance_exists(rb2)) {
+        	var _r2x = point.x - rb2.position.x;
+            var _r2y = point.y - rb2.position.y;
+            
+            var _vel2x = rb2.velocity.x - rb2.angularVelocity * _r2y;
+            var _vel2y = rb2.velocity.y + rb2.angularVelocity * _r2x;
+            _relativeVel.add(-_vel2x,-_vel2y);
+        }
+        
+        
+        return _relativeVel.dotProductVector(normal);
 	}
     
     
