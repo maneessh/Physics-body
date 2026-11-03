@@ -226,12 +226,14 @@ function Contact(_rb1=undefined, _rb2=undefined) constructor
 ///	@func	ContactResolver(iterations);
 ///	@param	{real}	iterations	The number of iterations that can be used.
 ///	@desc	The contact resolution routine for contacts. Once can be shared for each physics world.
-function ContactResolver(_iterations=1) constructor
+function ContactResolver(_iterations = 6) constructor
 {
 	iterations = _iterations;
 	iterationsUsed = 0;			// For performance testing
 	penetrationEpsilon = 0.1;	// Tolerance for determining what is considered a collision
-	
+	velocityIterations = 8;
+    positionIterations = 8;
+    penetrationSlop = 0.01;
 	///	@func	setIterations(iterations);
 	///	@param	{real}	iterations	The number of iterations that can be used.
 	///	@desc	Sets the iterations the resolver can use.
@@ -247,87 +249,63 @@ function ContactResolver(_iterations=1) constructor
 	///	@param	{real}	contactCount	How many contacts there are.
 	///	@param	{real}	dt				The change in time in the simulation.
 	///	@desc	Resolves contacts for both penetration and velocity.
-	static resolveContacts = function(_contacts, _contactCount, _dt)
-	{
-		// Reset iterations used
-		iterationsUsed = 0;
-		
-		// Iterate until done
-		while (iterationsUsed < iterations)
-		{
-			// Find contact with largest closing velocity (opposite to separating)
-			//var _max = 0;
-			//var _maxIdx = _contactCount;
-			//for (var _i = 0; _i < _contactCount; _i++)
-			//{
-			//	// Get separating velocity
-			//	var _sepVel = _contacts[_i].calculateSeparatingVelocity();
-			//	if (_sepVel < _max && (_sepVel < 0 || _contacts[_i].penetration > 0))
-			//	{
-			//		// Found new highest closing velocity
-			//		_max = _sepVel;
-			//		_maxIdx = _i;
-			//	}
-			//}
-			
-			// Find contact with largest penetration (works better with rotating bodies)
-			var _worstPenetration = penetrationEpsilon;
-			var _maxIdx = _contactCount;
-			for (var _i = 0; _i < _contactCount; _i++)
-			{
-				// Get separating velocity
-				var _penetration = _contacts[_i].penetration;
-				if (_contacts[_i].penetration > _worstPenetration)
-				{
-					// Found new highest closing velocity
-					_worstPenetration = _contacts[_i].penetration;
-					_maxIdx = _i;
-				}
-			}
-			
-			// Break if found nothing
-			if (_maxIdx == _contactCount) break;
-			
-			// Update awake state
-			_contacts[_maxIdx].matchAwakeState();
-			
-			// Resolve this contact
-			_contacts[_maxIdx].resolve(_dt);
-			
-			// Update interpenetrations for all bodies
-			var _rb1Movement = _contacts[_maxIdx].rb1Movement, _rb2Movement = _contacts[_maxIdx].rb2Movement;
-			for (var _i = 0; _i < _contactCount; _i++)
-			{
-				// Interpenetration for first body
-				if (_contacts[_i].rb1 == _contacts[_maxIdx].rb1)
-				{
-					_contacts[_i].penetration -= _rb1Movement.dotProductVector(_contacts[_i].normal);
-				}
-				else if (_contacts[_i].rb1 == _contacts[_maxIdx].rb2)
-				{
-					_contacts[_i].penetration -= _rb2Movement.dotProductVector(_contacts[_i].normal);
-				}
-				
-				// Interpenetration for second body
-				if (instance_exists(_contacts[_i].rb2) && _contacts[_i].rb2.inverseMass > 0)
-				{
-					if (_contacts[_i].rb2 == _contacts[_maxIdx].rb1)
-					{
-						_contacts[_i].penetration += _rb1Movement.dotProductVector(_contacts[_i].normal);
-					}
-					else if (_contacts[_i].rb2 == _contacts[_maxIdx].rb2)
-					{
-						_contacts[_i].penetration += _rb2Movement.dotProductVector(_contacts[_i].normal);
-					}
-				}
-			}
-			
-			// Increment iterations used
-			iterationsUsed++;
-		}
-	}
+	static resolveContacts = function(_contacts, _count, _dt)
+   {
+       iterationsUsed = 0;
+   
+       // PASS 1: velocity. Every contact, every iteration (Gauss-Seidel).
+       for (var _it = 0; _it < velocityIterations; _it++)      // e.g. 8
+       {
+           for (var _i = 0; _i < _count; _i++)
+           {
+               _contacts[_i].matchAwakeState();
+               _contacts[_i].resolveVelocity(_dt);
+            
+_contacts[_i].resolvefrictions(_dt);
+           }
+           iterationsUsed++;
+       }
+   
+       // PASS 2: position. Your existing "worst penetration" loop, position only.
+       for (var _it = 0; _it < positionIterations; _it++)      // e.g. _count * 2
+       {
+           var _worst = penetrationSlop;                       // 0.01, not 0.1
+           var _maxIdx = _count;
+           for (var _i = 0; _i < _count; _i++)
+           {
+               if (_contacts[_i].penetration > _worst)
+               {
+                   _worst = _contacts[_i].penetration;
+                   _maxIdx = _i;
+               }
+           }
+           if (_maxIdx == _count) break;
+   
+          
+           // ... your existing "update penetrations for other contacts" block unchanged ... 
+            _contacts[_maxIdx].resolveInterpenetration(_dt);
+            
+            var _rb1Movement = _contacts[_maxIdx].rb1Movement, _rb2Movement = _contacts[_maxIdx].rb2Movement;
+            for (var _i = 0; _i < _count; _i++)
+            {
+                if (_contacts[_i].rb1 == _contacts[_maxIdx].rb1)
+                    _contacts[_i].penetration -= _rb1Movement.dotProductVector(_contacts[_i].normal);
+                else if (_contacts[_i].rb1 == _contacts[_maxIdx].rb2)
+                    _contacts[_i].penetration -= _rb2Movement.dotProductVector(_contacts[_i].normal);
+            
+                if (instance_exists(_contacts[_i].rb2) && _contacts[_i].rb2.inverseMass > 0)
+                {
+                    if (_contacts[_i].rb2 == _contacts[_maxIdx].rb1)
+                        _contacts[_i].penetration += _rb1Movement.dotProductVector(_contacts[_i].normal);
+                    else if (_contacts[_i].rb2 == _contacts[_maxIdx].rb2)
+                        _contacts[_i].penetration += _rb2Movement.dotProductVector(_contacts[_i].normal);
+                }
+            }
+            iterationsUsed++;
+                       
+       }
+   }
 }
-
 ///	@func	ContactGen();
 ///	@desc	Adds contacts applied to registered bodies. Only inherited contact generators will be instanced.
 function ContactGen() constructor
