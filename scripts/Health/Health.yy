@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Health",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Health",
+  "parent":{
+    "name":"group1",
+    "path":"folders/Script/group1.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
